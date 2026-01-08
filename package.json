@@ -1,0 +1,25 @@
+{
+  "name": "youtube-collections",
+  "version": "1.0.0",
+  "description": "Organize your YouTube subscriptions into custom categories",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run build:watch",
+    "build": "bun run build:content && bun run build:css",
+    "build:watch": "bun run build:content --watch & bun run build:css --watch",
+    "build:content": "bun build src/content/index.tsx --outdir dist --target browser --minify",
+    "build:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/output.css"
+  },
+  "dependencies": {
+    "lucide-react": "^0.462.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "@types/chrome": "^0.0.277",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.7.2"
+  }
+}
