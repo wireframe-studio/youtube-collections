@@ -40,7 +40,7 @@ Organize your YouTube subscriptions into custom categories and filter your feed 
    - Open Chrome and navigate to `chrome://extensions/`
    - Enable "Developer mode" (toggle in top-right corner)
    - Click "Load unpacked"
-   - Select the root directory of this project (where `manifest.json` is located)
+   - Select the **`dist/`** directory (where the built extension is located)
 
 6. **Start using it!**
    - Go to [YouTube Subscriptions](https://www.youtube.com/feed/channels) to scan your channels
@@ -71,6 +71,7 @@ bun run build
 After making changes to the code:
 
 1. **Rebuild the extension** (either automatically via watch mode or manually with `bun run build`)
+   - The build process bundles your code, compiles CSS, and copies manifest + icons to `dist/`
 2. **Reload the extension in Chrome:**
    - Go to `chrome://extensions/`
    - Find "YouTube Collections"
@@ -83,7 +84,7 @@ After making changes to the code:
 
 ```
 youtube-sub-manager-2/
-├── src/
+├── src/                    # Source code
 │   ├── components/          # React components
 │   │   ├── CategoryCircle.tsx
 │   │   ├── CategorySection.tsx
@@ -99,9 +100,14 @@ youtube-sub-manager-2/
 │   ├── storage.ts          # Chrome storage utilities
 │   ├── channelScraper.ts   # Channel detection logic
 │   └── videoFilter.ts      # Video filtering logic
-├── dist/                   # Build output (generated)
-├── icons/                  # Extension icons
-├── manifest.json           # Chrome extension manifest
+├── dist/                   # Build output (load this in Chrome!)
+│   ├── index.js            # Bundled JavaScript
+│   ├── output.css          # Compiled CSS
+│   ├── manifest.json       # Extension manifest
+│   └── icons/              # Icon files
+├── icons/                  # Source icon files
+├── scripts/                # Build scripts
+├── manifest.json           # Source manifest
 ├── package.json
 ├── tsconfig.json
 └── tailwind.config.js

@@ -12,8 +12,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": ["dist/index.js"],
-      "css": ["dist/output.css"],
+      "js": ["index.js"],
+      "css": ["output.css"],
       "run_at": "document_end"
     }
   ],
@@ -24,7 +24,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["dist/*"],
+      "resources": ["*"],
       "matches": ["https://www.youtube.com/*"]
     }
   ]
