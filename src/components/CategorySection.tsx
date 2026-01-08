@@ -42,7 +42,7 @@ export function CategorySection() {
 
 	return (
 		<>
-			<view className="bg-[#0f0f0f] border-b border-white/10 py-4 px-6">
+			<view className="py-4">
 				<view className="flex items-center gap-4">
 					<button
 						onClick={() => setIsModalOpen(true)}
@@ -66,7 +66,7 @@ export function CategorySection() {
 						</button>
 					)}
 
-					<view className="flex-1 overflow-x-auto">
+					<view className="flex-1 overflow-x-auto p-2">
 						<view className="flex gap-6 pb-2">
 							{categories.map((category) => (
 								<CategoryCircle
