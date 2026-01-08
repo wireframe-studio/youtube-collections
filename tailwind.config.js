@@ -3,6 +3,7 @@ export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  important: '#yt-collections-root',
   theme: {
     extend: {
       colors: {
