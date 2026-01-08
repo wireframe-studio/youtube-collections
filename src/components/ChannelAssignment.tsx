@@ -1,8 +1,9 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getIconComponent } from '../iconRegistry';
-import { updateChannelCategories } from '../storage';
+import { updateChannelCategories, addCategory } from '../storage';
 import type { Category, Channel } from '../types';
+import { CATEGORY_COLORS } from '../types';
 
 interface ChannelAssignmentProps {
 	categories: Category[];
@@ -16,12 +17,14 @@ interface CategoryComboboxProps {
 	categories: Category[];
 	selectedIds: string[];
 	onToggle: (categoryId: string) => void;
+	onCreate: (category: Category) => void;
 }
 
 function CategoryCombobox({
 	categories,
 	selectedIds,
-	onToggle
+	onToggle,
+	onCreate
 }: CategoryComboboxProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchText, setSearchText] = useState('');
@@ -53,6 +56,31 @@ function CategoryCombobox({
 	function handleRemoveCategory(categoryId: string, e: React.MouseEvent) {
 		e.stopPropagation();
 		onToggle(categoryId);
+	}
+
+	async function handleCreateCategory() {
+		const trimmedName = searchText.trim();
+		if (!trimmedName || filteredCategories.length > 0) return;
+
+		// Create new category with random color
+		const randomColor = CATEGORY_COLORS[Math.floor(Math.random() * CATEGORY_COLORS.length)];
+		const newCategory: Category = {
+			id: crypto.randomUUID(),
+			name: trimmedName,
+			icon: 'Circle',
+			color: randomColor,
+		};
+
+		onCreate(newCategory);
+		setSearchText('');
+		setIsOpen(false);
+	}
+
+	function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			handleCreateCategory();
+		}
 	}
 
 	return (
@@ -100,7 +128,12 @@ function CategoryCombobox({
 						}
 						value={searchText}
 						onChange={(e) => setSearchText(e.target.value)}
+						onClick={(e) => {
+							e.stopPropagation();
+							setIsOpen(true);
+						}}
 						onFocus={() => setIsOpen(true)}
+						onKeyDown={handleKeyDown}
 						className="flex-1 min-w-[120px] bg-transparent outline-none text-white text-sm placeholder:text-white/40 px-2 py-1"
 					/>
 					<ChevronDown
@@ -115,7 +148,16 @@ function CategoryCombobox({
 				<view className="absolute top-full left-0 right-0 bg-[#1a1a1a] border-l border-r border-b border-white/20 rounded-b-lg shadow-2xl z-10001 max-h-[280px] overflow-y-auto">
 					{filteredCategories.length === 0 ? (
 						<view className="px-4 py-8 text-center text-white/40 text-sm">
-							{searchText ? 'No categories found' : 'No categories available'}
+							{searchText ? (
+								<view>
+									<view className="mb-2">No categories found</view>
+									<view className="text-xs text-white/60">
+										Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/80 font-mono">Enter</kbd> to create "{searchText}"
+									</view>
+								</view>
+							) : (
+								'No categories available'
+							)}
 						</view>
 					) : (
 						<view className="py-1">
@@ -292,6 +334,11 @@ export function ChannelAssignment({
 									categoryId,
 									!isCurrentlySelected
 								);
+							}}
+							onCreate={async (newCategory) => {
+								await addCategory(newCategory);
+								await handleCategoryChange(channel.id, newCategory.id, true);
+								onUpdate();
 							}}
 						/>
 					</view>
