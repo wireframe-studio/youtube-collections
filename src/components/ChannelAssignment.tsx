@@ -65,49 +65,58 @@ export function ChannelAssignment({ categories, channels, onUpdate }: ChannelAss
 
   if (channels.length === 0) {
     return (
-      <div className="text-center py-12 text-white/40">
-        <p className="mb-2">No channels detected yet.</p>
-        <p className="text-sm">Visit YouTube's <a href="https://www.youtube.com/feed/channels" target="_blank" className="text-white/60 underline">Subscriptions page</a> to scan your channels.</p>
+      <div className="text-center py-16 px-4">
+        <div className="text-white/40 mb-4">
+          <div className="text-lg font-medium mb-2">No channels detected yet</div>
+          <p className="text-sm">Visit YouTube's <a href="https://www.youtube.com/feed/channels" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">Subscriptions page</a> to scan your channels.</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-2">
-        <label className="text-sm text-white/70">Filter:</label>
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
-        >
-          <option value="all">All channels</option>
-          <option value="unassigned">Unassigned</option>
-          {categories.map(cat => (
-            <option key={cat.id} value={cat.id}>{cat.name}</option>
-          ))}
-        </select>
-        <span className="text-sm text-white/40 ml-auto">
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-3">
+          <label className="text-sm font-medium text-white/70">Filter by:</label>
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/30 transition-all min-w-[160px]"
+          >
+            <option value="all">All channels</option>
+            <option value="unassigned">Unassigned</option>
+            {categories.map(cat => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+        <span className="text-sm text-white/50 font-medium">
           {filteredChannels.length} channel{filteredChannels.length !== 1 ? 's' : ''}
         </span>
       </div>
 
-      <div className="space-y-1 max-h-[500px] overflow-y-auto">
+      <div className="space-y-2 max-h-[500px] overflow-y-auto pr-2">
         {filteredChannels.map(channel => (
           <div
             key={channel.id}
-            className="bg-white/5 rounded-lg p-3 flex items-center gap-3 border border-white/10"
+            className="bg-white/5 rounded-xl p-4 flex items-center gap-4 border border-white/10 hover:bg-white/[0.07] transition-colors"
           >
             <img
               src={channel.thumbnailUrl}
               alt={channel.name}
-              className="w-10 h-10 rounded-full"
+              className="w-12 h-12 rounded-full flex-shrink-0 border border-white/10"
             />
             <div className="flex-1 min-w-0">
-              <div className="text-white text-sm font-medium truncate">{channel.name}</div>
+              <div className="text-white font-medium truncate">{channel.name}</div>
+              {channel.categoryIds.length > 0 && (
+                <div className="text-xs text-white/50 mt-1">
+                  {channel.categoryIds.length} categor{channel.categoryIds.length === 1 ? 'y' : 'ies'}
+                </div>
+              )}
             </div>
 
-            <div className="relative">
+            <div className="relative flex-shrink-0">
               <select
                 multiple
                 value={channel.categoryIds}
@@ -129,12 +138,12 @@ export function ChannelAssignment({ categories, channels, onUpdate }: ChannelAss
                     }
                   });
                 }}
-                className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/20 min-w-[200px]"
-                size={Math.min(categories.length + 1, 5)}
+                className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/30 min-w-[220px] transition-all"
+                size={Math.min(categories.length, 6)}
               >
                 {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>
-                    {channel.categoryIds.includes(cat.id) ? '✓ ' : ''}{cat.name}
+                  <option key={cat.id} value={cat.id} className="py-1">
+                    {channel.categoryIds.includes(cat.id) ? '✓ ' : '  '}{cat.name}
                   </option>
                 ))}
               </select>
@@ -144,8 +153,11 @@ export function ChannelAssignment({ categories, channels, onUpdate }: ChannelAss
       </div>
 
       {categories.length === 0 && (
-        <div className="text-center py-8 text-white/40">
-          Create categories first to assign channels.
+        <div className="text-center py-12 px-4">
+          <div className="text-white/40">
+            <div className="text-lg font-medium mb-2">No categories available</div>
+            <div className="text-sm">Create categories first to assign channels.</div>
+          </div>
         </div>
       )}
     </div>

@@ -26,6 +26,8 @@ export async function scrapeChannels(): Promise<Channel[]> {
             thumbnailUrl: thumbnail.src,
             categoryIds: [],
           });
+        } else {
+          console.warn('[YouTube Collections] Could not extract channel ID from:', channelUrl);
         }
       }
     } catch (error) {
@@ -36,10 +38,11 @@ export async function scrapeChannels(): Promise<Channel[]> {
   return channels;
 }
 
-function extractChannelId(url: string): string {
+function extractChannelId(url: string): string | null {
   // Handle both /channel/ID and /@handle formats
-  const match = url.match(/\/(channel\/[^/]+|@[^/]+)/);
-  return match ? match[1] : url;
+  // Match: /channel/UC... or /@handle (stop at /, ?, &, #)
+  const match = url.match(/\/(channel\/[^/?&#]+|@[^/?&#]+)/);
+  return match ? match[1] : null;
 }
 
 function waitForElement(selector: string, timeout = 10000): Promise<Element> {

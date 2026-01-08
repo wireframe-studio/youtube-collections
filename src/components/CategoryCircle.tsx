@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Icons from 'lucide-react';
+import { getIconComponent } from '../iconRegistry';
 import type { Category } from '../types';
 
 interface CategoryCircleProps {
@@ -9,7 +9,7 @@ interface CategoryCircleProps {
 }
 
 export function CategoryCircle({ category, isActive, onClick }: CategoryCircleProps) {
-  const IconComponent = (Icons as any)[category.icon] || Icons.Circle;
+  const IconComponent = getIconComponent(category.icon);
 
   return (
     <div
