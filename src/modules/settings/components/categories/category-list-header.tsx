@@ -8,7 +8,7 @@ export const CategoryListHeader: FC<{
 }> = ({ onCreateClick, isCreating }) => {
 	return (
 		<view className="flex items-center justify-between">
-			<h3 className="title-2">Your Categories</h3>
+			<h3 className="title-2 text-neutral">Your Categories</h3>
 			<Button onClick={onCreateClick} variant="outline" size="md">
 				New Category
 				<Plus />

@@ -12,6 +12,11 @@
 		var(--yt-spec-text-primary) 5%,
 		transparent
 	);
+	--color-surface-muted: color-mix(
+		in srgb,
+		var(--yt-spec-text-primary) 5%,
+		transparent
+	);
 	--color-surface-hover: color-mix(
 		in srgb,
 		var(--yt-spec-text-primary) 10%,

@@ -26,7 +26,7 @@ export const CategoryForm: FC<{
 	submitLabel
 }) => {
 	return (
-		<view className="bg-white/5 rounded-xl p-6 space-y-5 border border-white/10">
+		<view className="bg-surface rounded-xl p-6 space-y-5 border border-white/10">
 			<view>
 				<label className="block text-sm font-medium text-white/70 mb-2">
 					Category Name

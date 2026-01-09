@@ -16,12 +16,12 @@ export const CategoriesTab: FC<{
 	const [isCreating, setIsCreating] = useState(false);
 	const [newName, setNewName] = useState('');
 	const [newIcon, setNewIcon] = useState('Circle');
-	const [newColor, setNewColor] = useState(CATEGORY_COLORS[0]);
+	const [newColor, setNewColor] = useState<string>(CATEGORY_COLORS[0]);
 
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [editName, setEditName] = useState('');
 	const [editIcon, setEditIcon] = useState('Circle');
-	const [editColor, setEditColor] = useState(CATEGORY_COLORS[0]);
+	const [editColor, setEditColor] = useState<string>(CATEGORY_COLORS[0]);
 
 	async function handleCreate() {
 		if (!newName.trim()) return;

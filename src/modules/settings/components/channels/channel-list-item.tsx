@@ -9,7 +9,7 @@ export const ChannelListItem: FC<{
 	onCategoryCreate: (category: Category) => void;
 }> = ({ channel, categories, onCategoryToggle, onCategoryCreate }) => {
 	return (
-		<view className="bg-white/5 rounded-xl p-4 flex items-center gap-4 border border-white/10 hover:bg-white/[0.07] transition-colors">
+		<view className="bg-surface-muted rounded-xl p-4 flex items-center gap-4 transition-colors">
 			{!channel.thumbnailUrl && (
 				<view className="w-12 h-12 rounded-full shrink-0 border border-white/10 bg-surface" />
 			)}
@@ -22,14 +22,8 @@ export const ChannelListItem: FC<{
 				/>
 			)}
 
-			<view className="flex-1 min-w-0">
-				<view className="text-white font-medium truncate">{channel.name}</view>
-				{channel.categoryIds.length > 0 && (
-					<view className="text-xs text-white/50 mt-1">
-						{channel.categoryIds.length} categor
-						{channel.categoryIds.length === 1 ? 'y' : 'ies'}
-					</view>
-				)}
+			<view className="title-3 text-neutral truncate flex-1">
+				{channel.name}
 			</view>
 
 			<CategoryCombobox

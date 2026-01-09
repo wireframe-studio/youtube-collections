@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import type { Category } from '../../../../types';
-import { CategoryItem } from './category-item';
+import { CategoryListEmptyPlaceholder } from './category-list-empty-placeholder';
+import { CategoryListItem } from './category-list-item';
 
 export const CategoryList: FC<{
 	categories: Category[];
@@ -18,18 +19,11 @@ export const CategoryList: FC<{
 	isCreating
 }) => {
 	if (categories.length === 0 && !isCreating) {
-		return (
-			<view className="text-center py-12 text-white/40">
-				<view className="text-lg mb-2">No categories yet</view>
-				<view className="text-sm">
-					Create your first category to get started!
-				</view>
-			</view>
-		);
+		return <CategoryListEmptyPlaceholder />;
 	}
 
 	return (
-		<view className="space-y-3">
+		<view className="flex flex-col gap-3">
 			{categories.map((category) => {
 				const isEditing = editingId === category.id;
 
@@ -38,7 +32,7 @@ export const CategoryList: FC<{
 				}
 
 				return (
-					<CategoryItem
+					<CategoryListItem
 						key={category.id}
 						category={category}
 						onEdit={() => onEdit(category)}
