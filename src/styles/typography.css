@@ -1,13 +1,3 @@
-/* Base styles */
-@utility display-1 {
-}
-
-@utility display-2 {
-}
-
-@utility display-3 {
-}
-
 /* Title */
 
 @utility title-1 {
@@ -24,9 +14,6 @@
 
 /* Body */
 
-@utility body-1 {
-}
-
 @utility body-2 {
 	@apply text-[1.4rem] leading-[2rem] font-[400];
 }
@@ -35,20 +22,7 @@
 	@apply text-[1.2rem] leading-[1.8rem] font-[400];
 }
 
-/* Caption */
-
-@utility caption {
-}
-
-/* Input */
-
-@utility input {
-}
-
 /* Buttons */
-
-@utility button-lg {
-}
 
 @utility button-md {
 	@apply text-[14px] leading-[36px] font-[500];

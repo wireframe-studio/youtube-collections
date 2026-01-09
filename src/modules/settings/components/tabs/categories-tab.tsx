@@ -220,9 +220,7 @@ export function CategoriesTab({
 	return (
 		<view className="flex flex-col gap-6">
 			<view className="flex items-center justify-between">
-				<h3 className="text-xl font-semibold text-[var(--yt-spec-text-primary)]">
-					Your Categories
-				</h3>
+				<h3 className="title-2">Your Categories</h3>
 				<Button
 					onClick={() => setIsCreating(!isCreating)}
 					variant="outline"

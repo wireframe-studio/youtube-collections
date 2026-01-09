@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
+@import './colors.css';
+@import './typography.css';
+@import './animate.css';
+
 @layer base;
 @layer components;
 @layer utilities;
-
-@import './typography.css';
-@import './colors.css';
-@import './animate.css';
