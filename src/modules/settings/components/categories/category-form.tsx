@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Button } from '../../../../components/button';
 import { FormLabel } from '../../../../components/form-label';
 import { IconPicker } from '../../../../components/icon-picker';
+import { Input } from '../../../../components/input';
 import { CATEGORY_COLORS } from '../../../../types';
 import { cn } from '../../../../utils/utils';
 
@@ -27,14 +28,13 @@ export const CategoryForm: FC<{
 	submitLabel
 }) => {
 	return (
-		<view className="bg-surface rounded-xl p-6 flex flex-col gap-4 border border-divider">
+		<view className="bg-surface rounded-xl p-8 flex flex-col gap-6 border border-divider">
 			<FormLabel title="Category Name">
-				<input
+				<Input
 					type="text"
 					placeholder="e.g., Science, Gaming, Music"
 					value={name}
 					onChange={(e) => onNameChange(e.target.value)}
-					className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
 					autoFocus
 				/>
 			</FormLabel>

@@ -7,9 +7,10 @@
     "dev": "bun run build:watch & bun run dev:server",
     "dev:server": "bun run dev/server.ts",
     "build": "bun run build:content && bun run build:css && bun run build:copy",
-    "build:watch": "bun run build:content --watch & bun run build:css --watch",
+    "build:watch": "bun run build:content --watch & bun run build:css:watch",
     "build:content": "bun build src/content/index.tsx --outdir dist --target browser --minify",
     "build:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/output.css",
+    "build:css:watch": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/output.css --watch",
     "build:copy": "bun scripts/copy-files.mjs"
   },
   "dependencies": {

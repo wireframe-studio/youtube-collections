@@ -72,7 +72,7 @@ export const CategoryCombobox: FC<{
 		<view className="relative min-w-[280px]" ref={comboboxRef as any}>
 			<view
 				className={cn(
-					'flex bg-white/5 border rounded-lg p-2 min-h-[44px] cursor-pointer hover:bg-white/[0.07] transition-colors',
+					'flex bg-white/5 border rounded-lg p-2 min-h-[44px] max-w-[280px] overflow-x-scroll cursor-pointer hover:bg-white/[0.07] transition-colors',
 					isOpen ? 'border-white/20 rounded-b-none' : 'border-white/10'
 				)}
 				onClick={() => {
@@ -87,18 +87,18 @@ export const CategoryCombobox: FC<{
 						return (
 							<view
 								key={cat.id}
-								className="inline-flex items-center gap-1.5 pl-2 pr-1 py-1 rounded-md text-xs font-medium text-white"
+								className="inline-flex items-center gap-2 pl-3 pr-2 py-1 rounded-xl body-3 font-medium text-white"
 								style={{
 									backgroundColor: cat.color + '40',
 									borderColor: cat.color,
 									borderWidth: '1px'
 								}}>
-								<IconComponent className="w-3 h-3" />
+								<IconComponent className="w-4 h-4" />
 								<span>{cat.name}</span>
 								<button
 									onClick={(e) => handleRemoveCategory(cat.id, e)}
 									className="hover:bg-black/20 rounded p-0.5 transition-colors">
-									<X className="w-3 h-3" />
+									<X className="w-4 h-4" />
 								</button>
 							</view>
 						);
@@ -119,7 +119,7 @@ export const CategoryCombobox: FC<{
 						}}
 						onFocus={() => setIsOpen(true)}
 						onKeyDown={handleKeyDown}
-						className="flex-1 min-w-[120px] bg-transparent outline-none text-white text-sm placeholder:text-white/40 px-2 py-1"
+						className="flex-1 min-w-[120px] bg-transparent body-2 outline-none text-white text-sm placeholder:text-white/40 px-2 py-1"
 					/>
 					<ChevronDown
 						className={cn(

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import type { Category, Channel } from '../../../../types';
 import { ChannelListEmptyPlaceholder } from './channel-list-empty-placeholder';
 import { ChannelListItem } from './channel-list-item';
+import { ChannelListNoCategoriesPlaceholder } from './channel-list-no-categories-placeholder';
 
 export const ChannelList: FC<{
 	channels: Channel[];
@@ -18,22 +19,11 @@ export const ChannelList: FC<{
 	}
 
 	if (categories.length === 0) {
-		return (
-			<view className="text-center py-12 px-4">
-				<view className="text-white/40">
-					<view className="text-lg font-medium mb-2">
-						No categories available
-					</view>
-					<view className="text-sm">
-						Create categories first to assign channels.
-					</view>
-				</view>
-			</view>
-		);
+		return <ChannelListNoCategoriesPlaceholder />;
 	}
 
 	return (
-		<view className="flex flex-col gap-2 max-h-[500px] overflow-y-scroll">
+		<view className="flex flex-col gap-3 max-h-[500px] overflow-y-scroll px-8">
 			{channels.map((channel) => (
 				<ChannelListItem
 					key={channel.id}

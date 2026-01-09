@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 export const DataFooter: FC = () => {
 	return (
-		<view className="text-center p-4 border-t border-t-divider">
+		<view className="text-center pt-10 border-t border-t-divider">
 			<p className="body-3 text-neutral-muted">
 				Maintained by{' '}
 				<a

@@ -19,7 +19,7 @@ export const DataTab: FC<{
 		<>
 			<DataHeader />
 
-			<view className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto w-full">
+			<view className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto w-full px-8">
 				<DataActionCard
 					icon={
 						<Download className="w-5 h-5 text-[var(--yt-spec-text-primary)]" />
@@ -29,7 +29,7 @@ export const DataTab: FC<{
 					buttonLabel="Export Data"
 					buttonIcon={<Download className="w-4 h-4" />}
 					onButtonClick={handleExport}
-					buttonVariant="primary"
+					buttonVariant="solid"
 				/>
 
 				<DataActionCard
@@ -41,16 +41,18 @@ export const DataTab: FC<{
 					buttonLabel="Import Data"
 					buttonIcon={<Upload className="w-4 h-4" />}
 					onButtonClick={handleImport}
-					buttonVariant="secondary"
+					buttonVariant="outline"
 				/>
 			</view>
 
-			<DataInfoSection />
+			<view className="px-8 w-full flex flex-col gap-8">
+				<DataInfoSection />
 
-			<DataStats
-				categoryCount={categories.length}
-				channelCount={channels.length}
-			/>
+				<DataStats
+					categoryCount={categories.length}
+					channelCount={channels.length}
+				/>
+			</view>
 
 			<DataFooter />
 		</>

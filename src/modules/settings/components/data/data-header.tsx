@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 export const DataHeader: FC = () => {
 	return (
-		<view className="text-center flex flex-col gap-3">
+		<view className="text-center flex flex-col gap-3 px-8">
 			<view className="flex justify-center">
 				<view className="p-4 bg-surface-muted rounded-2xl">
 					<Database className="w-12 h-12 text-neutral" />

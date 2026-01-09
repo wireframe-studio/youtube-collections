@@ -4,18 +4,18 @@ import * as React from 'react';
 import { cn } from '../utils/utils';
 
 const buttonVariants = cva(
-	'flex flex-row items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none',
+	'flex flex-row items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none border',
 	{
 		variants: {
 			variant: {
 				solid:
-					'bg-neutral text-neutral-contrast hover:bg-surface-hover active:bg-surface-active hover:text-neutral',
+					'bg-neutral text-neutral-contrast hover:bg-surface-hover active:bg-surface-active hover:text-neutral border-transparent',
 				'solid-weak':
-					'bg-surface text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-[var(--yt-spec-text-primary)]',
+					'bg-surface text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-neutral border-transparent',
 				ghost:
-					'bg-transparent text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-neutral',
+					'bg-transparent text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-neutral border-transparent',
 				outline:
-					'bg-transparent text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-neutral border border-divider'
+					'bg-transparent text-neutral hover:bg-surface-hover active:bg-surface-active [&>svg]:text-neutral border-divider'
 			},
 			size: {
 				sm: '',

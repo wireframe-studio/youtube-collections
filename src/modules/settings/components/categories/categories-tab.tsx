@@ -99,7 +99,7 @@ export const CategoriesTab: FC<{
 				</Button>
 			</SectionHeader>
 
-			<view className="flex flex-col gap-2">
+			<view className="flex flex-col gap-3 px-8">
 				{isCreating && (
 					<CategoryForm
 						name={newName}

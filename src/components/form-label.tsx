@@ -12,7 +12,7 @@ export const FormLabel: FC<
 	} & PropsWithChildren
 > = ({ title, error, description, required, children, className }) => {
 	return (
-		<view className={cn('flex flex-col gap-1 w-full', className)}>
+		<view className={cn('flex flex-col gap-4 w-full', className)}>
 			{title && (
 				<p className="caption text-neutral-muted">
 					{title} {required && <span className="text-neutral">*</span>}
