@@ -1,6 +1,12 @@
-# YouTube Collections
+<div align="center">
+  <img src="icons/icon128.png" alt="YouTube Collections Logo" width="128" height="128">
 
-Organize your YouTube subscriptions into custom categories and filter your feed with ease.
+  # YouTube Collections
+
+  **An open source Chrome extension to organize and manage your YouTube subscriptions**
+
+  Create custom categories, filter your feed, and take control of your subscription experience.
+</div>
 
 ## Features
 
@@ -183,6 +189,15 @@ youtube-sub-manager-2/
 - Delete `node_modules` and `dist`, then run `bun install` and `bun run build`
 - Check that all files in `src/` are present
 
+## Contributing
+
+This is an open source project! Contributions, issues, and feature requests are welcome.
+
+Feel free to:
+- Report bugs or suggest features via [GitHub Issues](../../issues)
+- Submit pull requests with improvements
+- Fork and customize for your own needs
+
 ## License
 
-MIT License - feel free to use and modify as needed!
+MIT License - free to use, modify, and distribute. See the LICENSE file for details.
