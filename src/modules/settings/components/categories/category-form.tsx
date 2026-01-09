@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Button } from '../../../../components/button';
+import { FormLabel } from '../../../../components/form-label';
 import { IconPicker } from '../../../../components/icon-picker';
 import { CATEGORY_COLORS } from '../../../../types';
 import { cn } from '../../../../utils/utils';
@@ -26,11 +27,8 @@ export const CategoryForm: FC<{
 	submitLabel
 }) => {
 	return (
-		<view className="bg-surface rounded-xl p-6 space-y-5 border border-white/10">
-			<view>
-				<label className="block text-sm font-medium text-white/70 mb-2">
-					Category Name
-				</label>
+		<view className="bg-surface rounded-xl p-6 flex flex-col gap-4 border border-divider">
+			<FormLabel title="Category Name">
 				<input
 					type="text"
 					placeholder="e.g., Science, Gaming, Music"
@@ -39,19 +37,13 @@ export const CategoryForm: FC<{
 					className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
 					autoFocus
 				/>
-			</view>
+			</FormLabel>
 
-			<view>
-				<label className="block text-sm font-medium text-white/70 mb-3">
-					Choose an Icon
-				</label>
+			<FormLabel title="Choose an Icon">
 				<IconPicker selectedIcon={icon} onSelect={onIconChange} />
-			</view>
+			</FormLabel>
 
-			<view>
-				<label className="block text-sm font-medium text-white/70 mb-3">
-					Pick a Color
-				</label>
+			<FormLabel title="Pick a Color">
 				<view className="flex gap-2.5 flex-wrap">
 					{CATEGORY_COLORS.map((c) => (
 						<button
@@ -67,9 +59,9 @@ export const CategoryForm: FC<{
 						/>
 					))}
 				</view>
-			</view>
+			</FormLabel>
 
-			<view className="flex gap-3 pt-2">
+			<view className="flex gap-2">
 				<Button
 					onClick={onSubmit}
 					disabled={!name.trim()}

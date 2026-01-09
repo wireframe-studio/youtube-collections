@@ -34,7 +34,7 @@ export const Tabs = ({
 	);
 };
 export const TabsList = ({ children }: { children: React.ReactNode }) => {
-	return <view className="flex gap-2 px-8 pt-6 pb-2">{children}</view>;
+	return <view className="flex px-8 py-4">{children}</view>;
 };
 export const TabTrigger = ({
 	children,

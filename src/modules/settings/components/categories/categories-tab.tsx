@@ -1,4 +1,7 @@
+import { Plus } from 'lucide-react';
 import { FC, useState } from 'react';
+import { Button } from '../../../../components/button';
+import { SectionHeader } from '../../../../components/section-header';
 import {
 	addCategory,
 	deleteCategory,
@@ -7,7 +10,6 @@ import {
 import { CATEGORY_COLORS, type Category } from '../../../../types';
 import { CategoryForm } from './category-form';
 import { CategoryList } from './category-list';
-import { CategoryListHeader } from './category-list-header';
 
 export const CategoriesTab: FC<{
 	categories: Category[];
@@ -82,47 +84,58 @@ export const CategoriesTab: FC<{
 	}
 
 	return (
-		<view className="flex flex-col gap-6">
-			<CategoryListHeader
-				onCreateClick={() => setIsCreating(!isCreating)}
-				isCreating={isCreating}
-			/>
+		<>
+			<SectionHeader
+				title="Your Categories"
+				description={`${categories.length} category${
+					categories.length !== 1 ? 's' : ''
+				}`}>
+				<Button
+					onClick={() => setIsCreating(!isCreating)}
+					variant="outline"
+					size="md">
+					New Category
+					<Plus />
+				</Button>
+			</SectionHeader>
 
-			{isCreating && (
-				<CategoryForm
-					name={newName}
-					icon={newIcon}
-					color={newColor}
-					onNameChange={setNewName}
-					onIconChange={setNewIcon}
-					onColorChange={setNewColor}
-					onSubmit={handleCreate}
-					onCancel={() => setIsCreating(false)}
-					submitLabel="Create Category"
-				/>
-			)}
-
-			<CategoryList
-				categories={categories}
-				editingId={editingId}
-				onEdit={handleStartEdit}
-				onDelete={handleDelete}
-				isCreating={isCreating}
-				renderEditForm={(category) => (
+			<view className="flex flex-col gap-2">
+				{isCreating && (
 					<CategoryForm
-						key={category.id}
-						name={editName}
-						icon={editIcon}
-						color={editColor}
-						onNameChange={setEditName}
-						onIconChange={setEditIcon}
-						onColorChange={setEditColor}
-						onSubmit={handleSaveEdit}
-						onCancel={handleCancelEdit}
-						submitLabel="Save Changes"
+						name={newName}
+						icon={newIcon}
+						color={newColor}
+						onNameChange={setNewName}
+						onIconChange={setNewIcon}
+						onColorChange={setNewColor}
+						onSubmit={handleCreate}
+						onCancel={() => setIsCreating(false)}
+						submitLabel="Create Category"
 					/>
 				)}
-			/>
-		</view>
+
+				<CategoryList
+					categories={categories}
+					editingId={editingId}
+					onEdit={handleStartEdit}
+					onDelete={handleDelete}
+					isCreating={isCreating}
+					renderEditForm={(category) => (
+						<CategoryForm
+							key={category.id}
+							name={editName}
+							icon={editIcon}
+							color={editColor}
+							onNameChange={setEditName}
+							onIconChange={setEditIcon}
+							onColorChange={setEditColor}
+							onSubmit={handleSaveEdit}
+							onCancel={handleCancelEdit}
+							submitLabel="Save Changes"
+						/>
+					)}
+				/>
+			</view>
+		</>
 	);
 };

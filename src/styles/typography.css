@@ -22,6 +22,12 @@
 	@apply text-[1.2rem] leading-[1.8rem] font-[400];
 }
 
+/* Caption */
+
+@utility caption {
+	@apply text-[1rem] leading-[1rem] font-[600];
+}
+
 /* Buttons */
 
 @utility button-md {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MainArea } from '../../../components/main-area';
 import {
 	TabContent,
 	Tabs,
@@ -7,10 +8,10 @@ import {
 } from '../../../components/tabs';
 import { getStorageData } from '../../../storage';
 import type { Category, Channel } from '../../../types';
-import { ModalHeader } from './modal-header';
 import { CategoriesTab } from './categories/categories-tab';
 import { ChannelsTab } from './channels/channels-tab';
 import { DataTab } from './data/data-tab';
+import { ModalHeader } from './modal-header';
 
 interface ModalProps {
 	onClose: () => void;
@@ -41,18 +42,19 @@ export function SettingsModal({ onClose }: ModalProps) {
 				<ModalHeader onClose={onClose} />
 
 				<Tabs defaultValue="categories">
-					{/* Tabs */}
-					<TabsList>
-						<TabTrigger value="categories">Your Categories</TabTrigger>
-						<TabTrigger value="channels">Channels by Category</TabTrigger>
-						<TabTrigger value="data">Data</TabTrigger>
-					</TabsList>
+					<MainArea>
+						{/* Tabs */}
+						<TabsList>
+							<TabTrigger value="categories"> Categories </TabTrigger>
+							<TabTrigger value="channels"> Channels </TabTrigger>
+							<TabTrigger value="data"> Data </TabTrigger>
+						</TabsList>
 
-					{/* Content */}
-					<view className="flex-1 overflow-y-auto px-8 py-6 min-h-0">
+						{/* Content */}
 						<TabContent value="categories">
 							<CategoriesTab categories={categories} onUpdate={loadData} />
 						</TabContent>
+
 						<TabContent value="channels">
 							<ChannelsTab
 								categories={categories}
@@ -60,6 +62,7 @@ export function SettingsModal({ onClose }: ModalProps) {
 								onUpdate={loadData}
 							/>
 						</TabContent>
+
 						<TabContent value="data">
 							<DataTab
 								categories={categories}
@@ -67,7 +70,7 @@ export function SettingsModal({ onClose }: ModalProps) {
 								onUpdate={loadData}
 							/>
 						</TabContent>
-					</view>
+					</MainArea>
 				</Tabs>
 			</view>
 		</view>

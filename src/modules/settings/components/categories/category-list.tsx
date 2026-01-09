@@ -23,7 +23,7 @@ export const CategoryList: FC<{
 	}
 
 	return (
-		<view className="flex flex-col gap-3">
+		<>
 			{categories.map((category) => {
 				const isEditing = editingId === category.id;
 
@@ -40,6 +40,6 @@ export const CategoryList: FC<{
 					/>
 				);
 			})}
-		</view>
+		</>
 	);
 };

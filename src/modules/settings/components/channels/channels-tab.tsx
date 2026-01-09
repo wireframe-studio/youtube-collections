@@ -1,8 +1,9 @@
 import { FC, useMemo, useState } from 'react';
+import { buttonVariants } from '../../../../components/button';
+import { SectionHeader } from '../../../../components/section-header';
 import { addCategory, updateChannelCategories } from '../../../../storage';
 import type { Category, Channel } from '../../../../types';
 import { ChannelList } from './channel-list';
-import { ChannelListHeader } from './channel-list-header';
 
 type FilterType = 'all' | 'unassigned' | string;
 
@@ -41,20 +42,39 @@ export const ChannelsTab: FC<{
 		onUpdate();
 	}
 
-	async function handleCategoryCreate(channelId: string, newCategory: Category) {
+	async function handleCategoryCreate(
+		channelId: string,
+		newCategory: Category
+	) {
 		await addCategory(newCategory);
 		await handleCategoryChange(channelId, newCategory.id, true);
 		onUpdate();
 	}
 
 	return (
-		<view className="flex flex-col gap-6">
-			<ChannelListHeader
-				categories={categories}
-				filter={filter}
-				onFilterChange={setFilter}
-				channelCount={filteredChannels.length}
-			/>
+		<>
+			<SectionHeader
+				title="Your Channels"
+				description={`${filteredChannels.length} channel${
+					filteredChannels.length !== 1 ? 's' : ''
+				}`}>
+				<select
+					value={filter}
+					onChange={(e) => setFilter(e.target.value)}
+					className={buttonVariants({
+						variant: 'outline',
+						size: 'md',
+						className: 'min-w-[160px]'
+					})}>
+					<option value="all">All channels</option>
+					<option value="unassigned">Unassigned</option>
+					{categories.map((cat) => (
+						<option key={cat.id} value={cat.id}>
+							{cat.name}
+						</option>
+					))}
+				</select>
+			</SectionHeader>
 
 			<ChannelList
 				channels={filteredChannels}
@@ -62,6 +82,6 @@ export const ChannelsTab: FC<{
 				onChannelUpdate={handleCategoryChange}
 				onCategoryCreate={handleCategoryCreate}
 			/>
-		</view>
+		</>
 	);
 };
