@@ -47,7 +47,7 @@ export function FeedSection() {
 
 	return (
 		<>
-			<view className="py-4">
+			<view className="py-4 bg-test">
 				<view className="flex items-center gap-4">
 					<Button
 						onClick={() => setIsModalOpen(true)}

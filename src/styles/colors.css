@@ -1,0 +1,27 @@
+@theme {
+	--color-background: var(--yt-spec-base-background);
+	--color-foreground: var(--yt-spec-base-background);
+	--color-divider: var(--yt-spec-outline);
+
+	--color-neutral: var(--yt-spec-text-primary);
+	--color-neutral-muted: var(--yt-spec-text-secondary);
+	--color-neutral-contrast: var(--yt-spec-base-background);
+
+	--color-surface: color-mix(
+		in srgb,
+		var(--yt-spec-text-primary) 5%,
+		transparent
+	);
+	--color-surface-hover: color-mix(
+		in srgb,
+		var(--yt-spec-text-primary) 10%,
+		transparent
+	);
+	--color-surface-active: color-mix(
+		in srgb,
+		var(--yt-spec-text-primary) 20%,
+		transparent
+	);
+
+	--color-test: red;
+}

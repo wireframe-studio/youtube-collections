@@ -40,12 +40,9 @@ export function SettingsModal({ onClose }: ModalProps) {
 					<h2 className="text-3xl font-bold text-[var(--yt-spec-text-primary)]">
 						YouTube Collections
 					</h2>
-					<button
-						onClick={onClose}
-						className="p-2.5 hover:bg-[var(--yt-spec-badge-chip-background)] rounded-xl transition-colors group"
-						aria-label="Close modal">
-						<X className="w-6 h-6 text-[var(--yt-spec-text-secondary)] group-hover:text-[var(--yt-spec-text-primary)] transition-colors" />
-					</button>
+					<Button onClick={onClose} size="icon" variant="ghost">
+						<X />
+					</Button>
 				</view>
 
 				{/* Tabs */}

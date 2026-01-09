@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { ICON_LIST } from '../iconRegistry';
-import { cn } from '../utils/utils';
+import { Button } from './button';
 
 interface IconPickerProps {
 	selectedIcon: string;
@@ -38,19 +38,13 @@ export function IconPicker({ selectedIcon, onSelect }: IconPickerProps) {
 						const isSelected = icon.name === selectedIcon;
 
 						return (
-							<button
+							<Button
 								key={icon.name}
 								onClick={() => onSelect(icon.name)}
-								className={cn(
-									'w-11 h-11 rounded-lg flex items-center justify-center transition-all',
-									isSelected
-										? 'bg-[var(--yt-spec-badge-chip-background)] ring-2 ring-[var(--yt-spec-text-primary)] scale-105 shadow-lg'
-										: 'bg-[var(--yt-spec-additive-background)] hover:bg-[var(--yt-spec-10-percent-layer)] hover:scale-105'
-								)}
-								title={icon.name}
-								aria-label={`Select ${icon.name} icon`}>
-								<IconComponent className="w-5 h-5 text-[var(--yt-spec-text-primary)]" />
-							</button>
+								variant={isSelected ? 'outline' : 'ghost'}
+								size="icon">
+								<IconComponent />
+							</Button>
 						);
 					})}
 				</view>

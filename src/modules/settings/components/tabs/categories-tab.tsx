@@ -1,5 +1,5 @@
 import { Pencil, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Button } from '../../../../components/button';
 import { IconPicker } from '../../../../components/icon-picker';
 import { getIconComponent } from '../../../../iconRegistry';
@@ -88,6 +88,135 @@ export function CategoriesTab({
 		setEditColor(CATEGORY_COLORS[0]);
 	}
 
+	const NewCategoryForm = () => {
+		return (
+			<view className="bg-white/5 rounded-xl p-6 space-y-5 border border-white/10">
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-2">
+						Category Name
+					</label>
+					<input
+						type="text"
+						placeholder="e.g., Science, Gaming, Music"
+						value={newName}
+						onChange={(e) => setNewName(e.target.value)}
+						className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
+						autoFocus
+					/>
+				</view>
+
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-3">
+						Choose an Icon
+					</label>
+					<IconPicker selectedIcon={newIcon} onSelect={setNewIcon} />
+				</view>
+
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-3">
+						Pick a Color
+					</label>
+					<view className="flex gap-2.5 flex-wrap">
+						{CATEGORY_COLORS.map((color) => (
+							<button
+								key={color}
+								onClick={() => setNewColor(color)}
+								className={cn(
+									'w-10 h-10 rounded-full transition-all',
+									color === newColor
+										? 'ring-3 ring-white/50 scale-110 shadow-lg'
+										: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
+								)}
+								style={{ backgroundColor: color }}
+							/>
+						))}
+					</view>
+				</view>
+
+				<view className="flex gap-3 pt-2">
+					<Button
+						onClick={handleCreate}
+						disabled={!newName.trim()}
+						variant="solid"
+						size="md">
+						Create Category
+					</Button>
+					<Button
+						onClick={() => setIsCreating(false)}
+						variant="solid-weak"
+						size="md">
+						Cancel
+					</Button>
+				</view>
+			</view>
+		);
+	};
+
+	const EditCategoryForm: FC<{ category: Category }> = ({ category }) => {
+		return (
+			<view
+				key={category.id}
+				className="bg-white/5 rounded-xl p-6 space-y-5 border border-white/10">
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-2">
+						Category Name
+					</label>
+					<input
+						type="text"
+						placeholder="e.g., Science, Gaming, Music"
+						value={editName}
+						onChange={(e) => setEditName(e.target.value)}
+						className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
+						autoFocus
+					/>
+				</view>
+
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-3">
+						Choose an Icon
+					</label>
+					<IconPicker selectedIcon={editIcon} onSelect={setEditIcon} />
+				</view>
+
+				<view>
+					<label className="block text-sm font-medium text-white/70 mb-3">
+						Pick a Color
+					</label>
+					<view className="flex gap-2.5 flex-wrap">
+						{CATEGORY_COLORS.map((color) => (
+							<button
+								key={color}
+								onClick={() => setEditColor(color)}
+								className={cn(
+									'w-10 h-10 rounded-full transition-all',
+									color === editColor
+										? 'ring-3 ring-white/50 scale-110 shadow-lg'
+										: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
+								)}
+								style={{ backgroundColor: color }}
+								aria-label={`Select color ${color}`}
+							/>
+						))}
+					</view>
+				</view>
+
+				<view className="flex gap-3 pt-2">
+					<button
+						onClick={handleSaveEdit}
+						disabled={!editName.trim()}
+						className="px-6 py-2.5 bg-white text-black rounded-xl font-medium hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+						Save Changes
+					</button>
+					<button
+						onClick={handleCancelEdit}
+						className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-[var(--yt-spec-text-primary)] rounded-xl transition-colors font-medium">
+						Cancel
+					</button>
+				</view>
+			</view>
+		);
+	};
+
 	return (
 		<view className="flex flex-col gap-6">
 			<view className="flex items-center justify-between">
@@ -103,66 +232,7 @@ export function CategoriesTab({
 				</Button>
 			</view>
 
-			{isCreating && (
-				<view className="bg-white/5 rounded-xl p-6 space-y-5 border border-white/10">
-					<view>
-						<label className="block text-sm font-medium text-white/70 mb-2">
-							Category Name
-						</label>
-						<input
-							type="text"
-							placeholder="e.g., Science, Gaming, Music"
-							value={newName}
-							onChange={(e) => setNewName(e.target.value)}
-							className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
-							autoFocus
-						/>
-					</view>
-
-					<view>
-						<label className="block text-sm font-medium text-white/70 mb-3">
-							Choose an Icon
-						</label>
-						<IconPicker selectedIcon={newIcon} onSelect={setNewIcon} />
-					</view>
-
-					<view>
-						<label className="block text-sm font-medium text-white/70 mb-3">
-							Pick a Color
-						</label>
-						<view className="flex gap-2.5 flex-wrap">
-							{CATEGORY_COLORS.map((color) => (
-								<button
-									key={color}
-									onClick={() => setNewColor(color)}
-									className={cn(
-										'w-10 h-10 rounded-full transition-all',
-										color === newColor
-											? 'ring-3 ring-white/50 scale-110 shadow-lg'
-											: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
-									)}
-									style={{ backgroundColor: color }}
-									aria-label={`Select color ${color}`}
-								/>
-							))}
-						</view>
-					</view>
-
-					<view className="flex gap-3 pt-2">
-						<button
-							onClick={handleCreate}
-							disabled={!newName.trim()}
-							className="px-6 py-2.5 bg-white text-black rounded-xl font-medium hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-							Create Category
-						</button>
-						<button
-							onClick={() => setIsCreating(false)}
-							className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-[var(--yt-spec-text-primary)] rounded-xl transition-colors font-medium">
-							Cancel
-						</button>
-					</view>
-				</view>
-			)}
+			{isCreating && <NewCategoryForm />}
 
 			<view className="space-y-3">
 				{categories.map((category) => {
@@ -170,68 +240,7 @@ export function CategoriesTab({
 					const isEditing = editingId === category.id;
 
 					if (isEditing) {
-						return (
-							<view
-								key={category.id}
-								className="bg-white/5 rounded-xl p-6 space-y-5 border border-white/10">
-								<view>
-									<label className="block text-sm font-medium text-white/70 mb-2">
-										Category Name
-									</label>
-									<input
-										type="text"
-										placeholder="e.g., Science, Gaming, Music"
-										value={editName}
-										onChange={(e) => setEditName(e.target.value)}
-										className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
-										autoFocus
-									/>
-								</view>
-
-								<view>
-									<label className="block text-sm font-medium text-white/70 mb-3">
-										Choose an Icon
-									</label>
-									<IconPicker selectedIcon={editIcon} onSelect={setEditIcon} />
-								</view>
-
-								<view>
-									<label className="block text-sm font-medium text-white/70 mb-3">
-										Pick a Color
-									</label>
-									<view className="flex gap-2.5 flex-wrap">
-										{CATEGORY_COLORS.map((color) => (
-											<button
-												key={color}
-												onClick={() => setEditColor(color)}
-												className={cn(
-													'w-10 h-10 rounded-full transition-all',
-													color === editColor
-														? 'ring-3 ring-white/50 scale-110 shadow-lg'
-														: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
-												)}
-												style={{ backgroundColor: color }}
-												aria-label={`Select color ${color}`}
-											/>
-										))}
-									</view>
-								</view>
-
-								<view className="flex gap-3 pt-2">
-									<button
-										onClick={handleSaveEdit}
-										disabled={!editName.trim()}
-										className="px-6 py-2.5 bg-white text-black rounded-xl font-medium hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-										Save Changes
-									</button>
-									<button
-										onClick={handleCancelEdit}
-										className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-[var(--yt-spec-text-primary)] rounded-xl transition-colors font-medium">
-										Cancel
-									</button>
-								</view>
-							</view>
-						);
+						return <EditCategoryForm category={category} />;
 					}
 
 					return (

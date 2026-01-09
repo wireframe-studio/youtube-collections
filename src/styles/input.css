@@ -4,4 +4,6 @@
 @layer components;
 @layer utilities;
 
+@import './typography.css';
+@import './colors.css';
 @import './animate.css';
