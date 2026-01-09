@@ -1,32 +1,30 @@
 @theme {
-	--color-background: var(--yt-spec-base-background);
-	--color-foreground: var(--yt-spec-base-background);
+	--color-background: var(--yt-spec-base-background, #000000);
+	--color-foreground: var(--yt-spec-base-background, #000000);
 	--color-divider: var(--yt-spec-outline);
 
-	--color-neutral: var(--yt-spec-text-primary);
-	--color-neutral-muted: var(--yt-spec-text-secondary);
-	--color-neutral-contrast: var(--yt-spec-base-background);
+	--color-neutral: var(--yt-spec-text-primary, #ffffff);
+	--color-neutral-muted: var(--yt-spec-text-secondary, #808080);
+	--color-neutral-contrast: var(--yt-spec-base-background, #000000);
 
 	--color-surface: color-mix(
 		in srgb,
-		var(--yt-spec-text-primary) 5%,
+		var(--yt-spec-text-primary, #ffffff) 5%,
 		transparent
 	);
 	--color-surface-muted: color-mix(
 		in srgb,
-		var(--yt-spec-text-primary) 5%,
+		var(--yt-spec-text-primary, #ffffff) 5%,
 		transparent
 	);
 	--color-surface-hover: color-mix(
 		in srgb,
-		var(--yt-spec-text-primary) 10%,
+		var(--yt-spec-text-primary, #ffffff) 10%,
 		transparent
 	);
 	--color-surface-active: color-mix(
 		in srgb,
-		var(--yt-spec-text-primary) 20%,
+		var(--yt-spec-text-primary, #ffffff) 20%,
 		transparent
 	);
-
-	--color-test: red;
 }
