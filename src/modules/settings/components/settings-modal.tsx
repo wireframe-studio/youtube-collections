@@ -8,9 +8,9 @@ import {
 import { getStorageData } from '../../../storage';
 import type { Category, Channel } from '../../../types';
 import { ModalHeader } from './modal-header';
-import { CategoriesTab } from './tabs/categories-tab';
-import { ChannelAssignment } from './tabs/channels-tab';
-import { DataTab } from './tabs/data-tab';
+import { CategoriesTab } from './categories/categories-tab';
+import { ChannelsTab } from './channels/channels-tab';
+import { DataTab } from './data/data-tab';
 
 interface ModalProps {
 	onClose: () => void;
@@ -54,7 +54,7 @@ export function SettingsModal({ onClose }: ModalProps) {
 							<CategoriesTab categories={categories} onUpdate={loadData} />
 						</TabContent>
 						<TabContent value="channels">
-							<ChannelAssignment
+							<ChannelsTab
 								categories={categories}
 								channels={channels}
 								onUpdate={loadData}
