@@ -102,10 +102,10 @@ export async function refreshChannelList(): Promise<void> {
 export function showScrapeProgress(): HTMLDivElement {
 	const container = document.createElement('div');
 	container.className =
-		'fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 z-[10000]';
+		'fixed bottom-10 right-10 bg-foreground text-neutral px-6 py-4 rounded-xl shadow-lg flex items-center gap-3 z-[10000]';
 	container.innerHTML = `
-    <view class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></view>
-    <span>Scanning channels...</span>
+    <view class="animate-spin rounded-full h-5 w-5 border-2 border-neutral border-t-transparent"></view>
+    <span class="body-2">Scanning channels...</span>
   `;
 	document.body.appendChild(container);
 	return container;
@@ -116,7 +116,7 @@ export function showScrapeSuccess(container: HTMLDivElement): void {
     <svg class="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
     </svg>
-    <span>Channels updated!</span>
+    <span class="body-2">Channels updated!</span>
   `;
 	setTimeout(() => {
 		container.style.opacity = '0';

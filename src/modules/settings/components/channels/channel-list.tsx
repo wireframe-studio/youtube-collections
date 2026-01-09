@@ -15,11 +15,19 @@ export const ChannelList: FC<{
 	onCategoryCreate: (channelId: string, category: Category) => void;
 }> = ({ channels, categories, onChannelUpdate, onCategoryCreate }) => {
 	if (channels.length === 0) {
-		return <ChannelListEmptyPlaceholder />;
+		return (
+			<view className="px-8">
+				<ChannelListEmptyPlaceholder />
+			</view>
+		);
 	}
 
 	if (categories.length === 0) {
-		return <ChannelListNoCategoriesPlaceholder />;
+		return (
+			<view className="px-8">
+				<ChannelListNoCategoriesPlaceholder />
+			</view>
+		);
 	}
 
 	return (

@@ -72,8 +72,8 @@ export const CategoryCombobox: FC<{
 		<view className="relative min-w-[280px]" ref={comboboxRef as any}>
 			<view
 				className={cn(
-					'flex bg-white/5 border rounded-lg p-2 min-h-[44px] max-w-[280px] overflow-x-scroll cursor-pointer hover:bg-white/[0.07] transition-colors',
-					isOpen ? 'border-white/20 rounded-b-none' : 'border-white/10'
+					'flex bg-surface-muted border rounded-lg p-2 min-h-[44px] max-w-[280px] overflow-x-scroll cursor-pointer hover:bg-surface-muted transition-colors',
+					isOpen ? 'border-divider rounded-b-none' : 'border-divider'
 				)}
 				onClick={() => {
 					setIsOpen(!isOpen);
@@ -87,14 +87,16 @@ export const CategoryCombobox: FC<{
 						return (
 							<view
 								key={cat.id}
-								className="inline-flex items-center gap-2 pl-3 pr-2 py-1 rounded-xl body-3 font-medium text-white"
+								className="inline-flex items-center gap-2 pl-3 pr-2 py-1 rounded-xl body-3 font-medium text-neutral"
 								style={{
 									backgroundColor: cat.color + '40',
 									borderColor: cat.color,
 									borderWidth: '1px'
 								}}>
 								<IconComponent className="w-4 h-4" />
+
 								<span>{cat.name}</span>
+
 								<button
 									onClick={(e) => handleRemoveCategory(cat.id, e)}
 									className="hover:bg-black/20 rounded p-0.5 transition-colors">
@@ -119,11 +121,11 @@ export const CategoryCombobox: FC<{
 						}}
 						onFocus={() => setIsOpen(true)}
 						onKeyDown={handleKeyDown}
-						className="flex-1 min-w-[120px] bg-transparent body-2 outline-none text-white text-sm placeholder:text-white/40 px-2 py-1"
+						className="flex-1 min-w-[120px] bg-transparent body-1 outline-none text-neutral placeholder:text-neutral-muted px-2 py-1"
 					/>
 					<ChevronDown
 						className={cn(
-							'w-4 h-4 text-white/50 transition-transform',
+							'w-4 h-4 text-neutral-muted transition-transform',
 							isOpen && 'rotate-180'
 						)}
 					/>
@@ -131,15 +133,15 @@ export const CategoryCombobox: FC<{
 			</view>
 
 			{isOpen && (
-				<view className="absolute top-full left-0 right-0 bg-[#1a1a1a] border-l border-r border-b border-white/20 rounded-b-lg shadow-2xl z-10001 max-h-[280px] overflow-y-auto">
+				<view className="absolute top-full left-0 right-0 bg-foreground border-l border-r border-b border-divider rounded-b-lg shadow-2xl z-10001 max-h-[280px] overflow-y-auto">
 					{filteredCategories.length === 0 ? (
-						<view className="px-4 py-8 text-center text-white/40 text-sm">
+						<view className="px-4 py-8 text-center text-neutral-muted">
 							{searchText ? (
 								<view>
 									<view className="mb-2">No categories found</view>
-									<view className="text-xs text-white/60">
+									<view className="body-3 text-neutral-muted">
 										Press{' '}
-										<kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/80 font-mono">
+										<kbd className="px-1.5 py-0.5 bg-surface rounded text-neutral font-mono">
 											Enter
 										</kbd>{' '}
 										to create "{searchText}"
@@ -159,16 +161,18 @@ export const CategoryCombobox: FC<{
 									<button
 										key={cat.id}
 										onClick={() => onToggle(cat.id)}
-										className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-left">
+										className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-hover active:bg-surface-active text-left">
 										<view
-											className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+											className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
 											style={{ backgroundColor: cat.color }}>
-											<IconComponent className="w-4 h-4 text-white" />
+											<IconComponent className="w-6 h-6 text-neutral" />
 										</view>
-										<span className="flex-1 text-white text-sm font-medium">
+
+										<span className="flex-1 title-3 text-neutral font-medium">
 											{cat.name}
 										</span>
-										{isSelected && <Check className="w-4 h-4 text-white" />}
+
+										{isSelected && <Check className="w-4 h-4 text-neutral" />}
 									</button>
 								);
 							})}
