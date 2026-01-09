@@ -4,12 +4,13 @@ import { getStorageData } from '../storage';
 import type { Category, Channel } from '../types';
 import { CategoryManagement } from './CategoryManagement';
 import { ChannelAssignment } from './ChannelAssignment';
+import { DataManagement } from './DataManagement';
 
 interface ModalProps {
 	onClose: () => void;
 }
 
-type Tab = 'categories' | 'channels';
+type Tab = 'categories' | 'channels' | 'data';
 
 export function Modal({ onClose }: ModalProps) {
 	const [activeTab, setActiveTab] = useState<Tab>('categories');
@@ -70,6 +71,18 @@ export function Modal({ onClose }: ModalProps) {
             `}>
 						Channels by Category
 					</button>
+					<button
+						onClick={() => setActiveTab('data')}
+						className={`
+              px-6 py-3 rounded-xl font-medium transition-all text-sm
+              ${
+								activeTab === 'data'
+									? 'bg-white/15 text-white shadow-lg'
+									: 'text-white/60 hover:text-white/90 hover:bg-white/5'
+							}
+            `}>
+						Data
+					</button>
 				</view>
 
 				{/* Content */}
@@ -79,6 +92,13 @@ export function Modal({ onClose }: ModalProps) {
 					)}
 					{activeTab === 'channels' && (
 						<ChannelAssignment
+							categories={categories}
+							channels={channels}
+							onUpdate={loadData}
+						/>
+					)}
+					{activeTab === 'data' && (
+						<DataManagement
 							categories={categories}
 							channels={channels}
 							onUpdate={loadData}
