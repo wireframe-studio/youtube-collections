@@ -1,7 +1,7 @@
-import { Download, Upload, Database, ExternalLink } from 'lucide-react';
+import { Database, Download, ExternalLink, Upload } from 'lucide-react';
 import { useRef } from 'react';
-import { getStorageData, setStorageData } from '../storage';
-import type { Category, Channel, StorageData } from '../types';
+import { getStorageData, setStorageData } from '../../../../storage';
+import type { Category, Channel } from '../../../../types';
 
 interface DataManagementProps {
 	categories: Category[];
@@ -9,7 +9,11 @@ interface DataManagementProps {
 	onUpdate: () => void;
 }
 
-export function DataManagement({ categories, channels, onUpdate }: DataManagementProps) {
+export function DataTab({
+	categories,
+	channels,
+	onUpdate
+}: DataManagementProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	async function handleExport() {
@@ -18,19 +22,23 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 			version: '1.0',
 			exportDate: new Date().toISOString(),
 			categories: data.categories,
-			channels: data.channels.map(ch => ({
+			channels: data.channels.map((ch) => ({
 				id: ch.id,
 				name: ch.name,
 				thumbnailUrl: ch.thumbnailUrl,
-				categoryIds: ch.categoryIds,
-			})),
+				categoryIds: ch.categoryIds
+			}))
 		};
 
-		const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+		const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+			type: 'application/json'
+		});
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `youtube-collections-${new Date().toISOString().split('T')[0]}.json`;
+		a.download = `youtube-collections-${
+			new Date().toISOString().split('T')[0]
+		}.json`;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
@@ -68,13 +76,13 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 		const currentData = await getStorageData();
 
 		// Get current channel IDs (channels that exist locally)
-		const existingChannelIds = new Set(currentData.channels.map(ch => ch.id));
+		const existingChannelIds = new Set(currentData.channels.map((ch) => ch.id));
 
 		// Merge categories: Add new categories, keep existing ones
 		const categoryMap = new Map<string, Category>();
 
 		// Add existing categories first
-		currentData.categories.forEach(cat => {
+		currentData.categories.forEach((cat) => {
 			categoryMap.set(cat.id, cat);
 		});
 
@@ -93,7 +101,7 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 		const channelMap = new Map<string, Channel>();
 
 		// Add existing channels
-		currentData.channels.forEach(ch => {
+		currentData.channels.forEach((ch) => {
 			channelMap.set(ch.id, { ...ch });
 		});
 
@@ -106,12 +114,12 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 					// Merge category IDs (union of both sets)
 					const mergedCategoryIds = new Set([
 						...existingChannel.categoryIds,
-						...importedCh.categoryIds,
+						...importedCh.categoryIds
 					]);
 
 					// Only keep category IDs that exist in our merged categories
 					const validCategoryIds = Array.from(mergedCategoryIds).filter(
-						catId => categoryMap.has(catId)
+						(catId) => categoryMap.has(catId)
 					);
 
 					existingChannel.categoryIds = validCategoryIds;
@@ -125,7 +133,7 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 		// Save merged data
 		await setStorageData({
 			categories: mergedCategories,
-			channels: mergedChannels,
+			channels: mergedChannels
 		});
 	}
 
@@ -142,8 +150,8 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 					Manage Your Data
 				</h3>
 				<p className="text-[var(--yt-spec-text-secondary)] max-w-xl mx-auto">
-					Export your collections to back them up or share with others. Import data to
-					restore or merge collections across devices.
+					Export your collections to back them up or share with others. Import
+					data to restore or merge collections across devices.
 				</p>
 			</view>
 
@@ -212,11 +220,16 @@ export function DataManagement({ categories, channels, onUpdate }: DataManagemen
 				<ul className="space-y-2 text-sm text-[var(--yt-spec-text-secondary)]">
 					<li className="flex gap-2">
 						<span className="text-[var(--yt-spec-text-primary)]">•</span>
-						<span>New categories from the file will be added to your collection</span>
+						<span>
+							New categories from the file will be added to your collection
+						</span>
 					</li>
 					<li className="flex gap-2">
 						<span className="text-[var(--yt-spec-text-primary)]">•</span>
-						<span>Channel assignments will be merged (channels can be in multiple categories)</span>
+						<span>
+							Channel assignments will be merged (channels can be in multiple
+							categories)
+						</span>
 					</li>
 					<li className="flex gap-2">
 						<span className="text-[var(--yt-spec-text-primary)]">•</span>

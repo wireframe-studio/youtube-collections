@@ -1,16 +1,22 @@
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { getIconComponent } from '../iconRegistry';
-import { addCategory, deleteCategory, updateCategory } from '../storage';
-import { CATEGORY_COLORS, type Category } from '../types';
-import { IconPicker } from './IconPicker';
+import { Button } from '../../../../components/button';
+import { IconPicker } from '../../../../components/icon-picker';
+import { getIconComponent } from '../../../../iconRegistry';
+import {
+	addCategory,
+	deleteCategory,
+	updateCategory
+} from '../../../../storage';
+import { CATEGORY_COLORS, type Category } from '../../../../types';
+import { cn } from '../../../../utils/utils';
 
 interface CategoryManagementProps {
 	categories: Category[];
 	onUpdate: () => void;
 }
 
-export function CategoryManagement({
+export function CategoriesTab({
 	categories,
 	onUpdate
 }: CategoryManagementProps) {
@@ -85,13 +91,16 @@ export function CategoryManagement({
 	return (
 		<view className="flex flex-col gap-6">
 			<view className="flex items-center justify-between">
-				<h3 className="text-xl font-semibold text-white">Your Categories</h3>
-				<button
+				<h3 className="text-xl font-semibold text-[var(--yt-spec-text-primary)]">
+					Your Categories
+				</h3>
+				<Button
 					onClick={() => setIsCreating(!isCreating)}
-					className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-sm text-white flex items-center gap-2 transition-colors font-medium">
-					<Plus className="w-4 h-4" />
+					variant="outline"
+					size="md">
 					New Category
-				</button>
+					<Plus />
+				</Button>
 			</view>
 
 			{isCreating && (
@@ -105,7 +114,7 @@ export function CategoryManagement({
 							placeholder="e.g., Science, Gaming, Music"
 							value={newName}
 							onChange={(e) => setNewName(e.target.value)}
-							className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
+							className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
 							autoFocus
 						/>
 					</view>
@@ -126,14 +135,12 @@ export function CategoryManagement({
 								<button
 									key={color}
 									onClick={() => setNewColor(color)}
-									className={`
-                    w-10 h-10 rounded-full transition-all
-                    ${
-											color === newColor
-												? 'ring-3 ring-white/50 scale-110 shadow-lg'
-												: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
-										}
-                  `}
+									className={cn(
+										'w-10 h-10 rounded-full transition-all',
+										color === newColor
+											? 'ring-3 ring-white/50 scale-110 shadow-lg'
+											: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
+									)}
 									style={{ backgroundColor: color }}
 									aria-label={`Select color ${color}`}
 								/>
@@ -150,7 +157,7 @@ export function CategoryManagement({
 						</button>
 						<button
 							onClick={() => setIsCreating(false)}
-							className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors font-medium">
+							className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-[var(--yt-spec-text-primary)] rounded-xl transition-colors font-medium">
 							Cancel
 						</button>
 					</view>
@@ -176,7 +183,7 @@ export function CategoryManagement({
 										placeholder="e.g., Science, Gaming, Music"
 										value={editName}
 										onChange={(e) => setEditName(e.target.value)}
-										className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
+										className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[var(--yt-spec-text-primary)] placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
 										autoFocus
 									/>
 								</view>
@@ -197,14 +204,12 @@ export function CategoryManagement({
 											<button
 												key={color}
 												onClick={() => setEditColor(color)}
-												className={`
-                          w-10 h-10 rounded-full transition-all
-                          ${
-														color === editColor
-															? 'ring-3 ring-white/50 scale-110 shadow-lg'
-															: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
-													}
-                        `}
+												className={cn(
+													'w-10 h-10 rounded-full transition-all',
+													color === editColor
+														? 'ring-3 ring-white/50 scale-110 shadow-lg'
+														: 'hover:scale-105 hover:ring-2 hover:ring-white/20'
+												)}
 												style={{ backgroundColor: color }}
 												aria-label={`Select color ${color}`}
 											/>
@@ -221,7 +226,7 @@ export function CategoryManagement({
 									</button>
 									<button
 										onClick={handleCancelEdit}
-										className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors font-medium">
+										className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-[var(--yt-spec-text-primary)] rounded-xl transition-colors font-medium">
 										Cancel
 									</button>
 								</view>
@@ -238,7 +243,7 @@ export function CategoryManagement({
 								style={{ backgroundColor: category.color }}>
 								<IconComponent className="w-6 h-6 text-white" />
 							</view>
-							<span className="text-white flex-1 font-medium">
+							<span className="text-[var(--yt-spec-text-primary)] flex-1 font-medium">
 								{category.name}
 							</span>
 							<button

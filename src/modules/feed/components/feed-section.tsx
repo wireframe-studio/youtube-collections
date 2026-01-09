@@ -1,11 +1,16 @@
 import { Settings } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { getStorageData, onStorageChange, setActiveFilters } from '../storage';
-import type { Category } from '../types';
-import { CategoryCircle } from './CategoryCircle';
-import { Modal } from './Modal';
+import { Button } from '../../../components/button';
+import {
+	getStorageData,
+	onStorageChange,
+	setActiveFilters
+} from '../../../storage';
+import type { Category } from '../../../types';
+import { SettingsModal } from '../../settings/components/settings-modal';
+import { CategoryItem } from './category-item';
 
-export function CategorySection() {
+export function FeedSection() {
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [activeFilters, setActiveFiltersState] = useState<string[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,32 +49,25 @@ export function CategorySection() {
 		<>
 			<view className="py-4">
 				<view className="flex items-center gap-4">
-					<button
+					<Button
 						onClick={() => setIsModalOpen(true)}
-						className="flex-shrink-0 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-						title="Manage collections">
-						<Settings className="w-6 h-6 text-white" />
-					</button>
+						variant="solid-weak"
+						size="icon">
+						<Settings />
+					</Button>
 
 					{categories.length > 0 && (
-						<button
+						<Button
 							onClick={showAll}
-							className={`
-                flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                ${
-									activeFilters.length === 0
-										? 'bg-white text-black'
-										: 'bg-white/10 text-white hover:bg-white/20'
-								}
-              `}>
+							variant={activeFilters.length === 0 ? 'solid-weak' : 'ghost'}>
 							Show All
-						</button>
+						</Button>
 					)}
 
 					<view className="flex-1 overflow-x-auto p-2">
 						<view className="flex gap-6 pb-2">
 							{categories.map((category) => (
-								<CategoryCircle
+								<CategoryItem
 									key={category.id}
 									category={category}
 									isActive={activeFilters.includes(category.id)}
@@ -81,7 +79,7 @@ export function CategorySection() {
 				</view>
 			</view>
 
-			{isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
+			{isModalOpen && <SettingsModal onClose={() => setIsModalOpen(false)} />}
 		</>
 	);
 }

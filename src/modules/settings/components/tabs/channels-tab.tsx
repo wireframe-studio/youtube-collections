@@ -1,9 +1,10 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getIconComponent } from '../iconRegistry';
-import { updateChannelCategories, addCategory } from '../storage';
-import type { Category, Channel } from '../types';
-import { CATEGORY_COLORS } from '../types';
+import { getIconComponent } from '../../../../iconRegistry';
+import { addCategory, updateChannelCategories } from '../../../../storage';
+import type { Category, Channel } from '../../../../types';
+import { CATEGORY_COLORS } from '../../../../types';
+import { cn } from '../../../../utils/utils';
 
 interface ChannelAssignmentProps {
 	categories: Category[];
@@ -63,12 +64,13 @@ function CategoryCombobox({
 		if (!trimmedName || filteredCategories.length > 0) return;
 
 		// Create new category with random color
-		const randomColor = CATEGORY_COLORS[Math.floor(Math.random() * CATEGORY_COLORS.length)];
+		const randomColor =
+			CATEGORY_COLORS[Math.floor(Math.random() * CATEGORY_COLORS.length)];
 		const newCategory: Category = {
 			id: crypto.randomUUID(),
 			name: trimmedName,
 			icon: 'Circle',
-			color: randomColor,
+			color: randomColor
 		};
 
 		onCreate(newCategory);
@@ -86,9 +88,10 @@ function CategoryCombobox({
 	return (
 		<view className="relative min-w-[280px]" ref={comboboxRef as any}>
 			<view
-				className={`flex bg-white/5 border rounded-lg p-2 min-h-[44px] cursor-pointer hover:bg-white/[0.07] transition-colors ${
+				className={cn(
+					'flex bg-white/5 border rounded-lg p-2 min-h-[44px] cursor-pointer hover:bg-white/[0.07] transition-colors',
 					isOpen ? 'border-white/20 rounded-b-none' : 'border-white/10'
-				}`}
+				)}
 				onClick={() => {
 					setIsOpen(!isOpen);
 					if (!isOpen) {
@@ -137,9 +140,10 @@ function CategoryCombobox({
 						className="flex-1 min-w-[120px] bg-transparent outline-none text-white text-sm placeholder:text-white/40 px-2 py-1"
 					/>
 					<ChevronDown
-						className={`w-4 h-4 text-white/50 transition-transform ${
-							isOpen ? 'rotate-180' : ''
-						}`}
+						className={cn(
+							'w-4 h-4 text-white/50 transition-transform',
+							isOpen && 'rotate-180'
+						)}
 					/>
 				</view>
 			</view>
@@ -152,7 +156,11 @@ function CategoryCombobox({
 								<view>
 									<view className="mb-2">No categories found</view>
 									<view className="text-xs text-white/60">
-										Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/80 font-mono">Enter</kbd> to create "{searchText}"
+										Press{' '}
+										<kbd className="px-1.5 py-0.5 bg-white/10 rounded text-white/80 font-mono">
+											Enter
+										</kbd>{' '}
+										to create "{searchText}"
 									</view>
 								</view>
 							) : (
