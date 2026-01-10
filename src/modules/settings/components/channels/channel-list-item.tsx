@@ -1,4 +1,6 @@
+import { ExternalLink } from 'lucide-react';
 import { FC } from 'react';
+import { Button } from '../../../../components/button';
 import type { Category, Channel } from '../../../../types';
 import { CategoryCombobox } from './category-combobox';
 
@@ -25,6 +27,15 @@ export const ChannelListItem: FC<{
 			<view className="title-3 text-neutral truncate flex-1">
 				{channel.name}
 			</view>
+
+			<Button
+				variant="ghost"
+				size="icon"
+				onClick={() =>
+					window.open(`https://www.youtube.com/${channel.id}`, '_blank')
+				}>
+				<ExternalLink />
+			</Button>
 
 			<CategoryCombobox
 				categories={categories}

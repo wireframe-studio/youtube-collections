@@ -6,7 +6,7 @@ import {
 	onStorageChange,
 	setActiveFilters
 } from '../../../storage';
-import type { Category } from '../../../types';
+import type { Category, StorageData } from '../../../types';
 import { SettingsModal } from '../../settings/components/settings-modal';
 import { CategoryItem } from './category-item';
 
@@ -22,12 +22,18 @@ export function FeedSection() {
 
 	async function loadData() {
 		const data = await getStorageData();
-		setCategories(data.categories);
+		const sortedCategories = data.categories.sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		setCategories(sortedCategories);
 		setActiveFiltersState(data.activeFilters);
 	}
 
-	function handleStorageChange(data: any) {
-		setCategories(data.categories);
+	function handleStorageChange(data: StorageData) {
+		const sortedCategories = data.categories.sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		setCategories(sortedCategories);
 		setActiveFiltersState(data.activeFilters);
 	}
 

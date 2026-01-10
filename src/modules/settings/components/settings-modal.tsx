@@ -27,7 +27,10 @@ export function SettingsModal({ onClose }: ModalProps) {
 
 	async function loadData() {
 		const data = await getStorageData();
-		setCategories(data.categories);
+		const sortedCategories = data.categories.sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		setCategories(sortedCategories);
 		setChannels(data.channels);
 	}
 

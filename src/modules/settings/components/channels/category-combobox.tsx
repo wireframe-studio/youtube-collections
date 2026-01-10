@@ -1,6 +1,6 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { FC, useEffect, useRef, useState } from 'react';
-import { getIconComponent } from '../../../../iconRegistry';
+import { getIconComponent, ICON_LIST } from '../../../../iconRegistry';
 import type { Category } from '../../../../types';
 import { CATEGORY_COLORS } from '../../../../types';
 import { cn } from '../../../../utils/utils';
@@ -16,12 +16,13 @@ export const CategoryCombobox: FC<{
 	const comboboxRef = useRef<HTMLElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const selectedCategories = categories.filter((cat) =>
-		selectedIds.includes(cat.id)
-	);
-	const filteredCategories = categories.filter((cat) =>
-		cat.name.toLowerCase().includes(searchText.toLowerCase())
-	);
+	const selectedCategories = categories
+		.sort((a, b) => a.name.localeCompare(b.name))
+		.filter((cat) => selectedIds.includes(cat.id));
+
+	const filteredCategories = categories
+		.sort((a, b) => a.name.localeCompare(b.name))
+		.filter((cat) => cat.name.toLowerCase().includes(searchText.toLowerCase()));
 
 	useEffect(() => {
 		function handleClickOutside(event: MouseEvent) {
@@ -49,10 +50,12 @@ export const CategoryCombobox: FC<{
 
 		const randomColor =
 			CATEGORY_COLORS[Math.floor(Math.random() * CATEGORY_COLORS.length)];
+		const randomIcon =
+			ICON_LIST[Math.floor(Math.random() * ICON_LIST.length)].name;
 		const newCategory: Category = {
 			id: crypto.randomUUID(),
 			name: trimmedName,
-			icon: 'Circle',
+			icon: randomIcon,
 			color: randomColor
 		};
 
