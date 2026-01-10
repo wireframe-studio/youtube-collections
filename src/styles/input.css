@@ -8,10 +8,10 @@
 @layer components;
 @layer utilities;
 
+:root {
+	--yt-offset: 24px;
+}
+
 #yt-collections-root {
 	width: 100%;
-	padding: 0
-		calc(
-			var(--ytd-rich-grid-item-margin) / 2 + var(--ytd-rich-grid-gutter-margin)
-		);
 }

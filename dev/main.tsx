@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryProvider } from '../src/modules/data/query-provider';
-import { FeedSection } from '../src/modules/feed/components/feed-section';
-import { SettingsModal } from '../src/modules/settings/components/settings-modal';
+import { App } from '../src/content/app';
 import type { StorageData } from '../src/types';
 
 // Mock Chrome Storage API for development
@@ -86,12 +84,7 @@ if (!localStorage.getItem(STORAGE_KEY)) {
 function DevApp() {
 	const [isModalOpen, setIsModalOpen] = useState(true);
 
-	return (
-		<QueryProvider>
-			<FeedSection />
-			{isModalOpen && <SettingsModal onClose={() => setIsModalOpen(false)} />}
-		</QueryProvider>
-	);
+	return <App />;
 }
 
 // Render the app

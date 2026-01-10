@@ -4,13 +4,13 @@ import {
 	showScrapeProgress,
 	showScrapeSuccess
 } from '../channelScraper';
-import { FeedSection } from '../modules/feed/components/feed-section';
 import {
 	clearActiveFilters,
 	getStorageData,
 	onStorageChange
 } from '../storage';
 import { VideoFilter } from '../videoFilter';
+import { App } from './app';
 
 let categoryRoot: Root | null = null;
 let videoFilter: VideoFilter | null = null;
@@ -84,7 +84,7 @@ function injectFeedSection() {
 
 				// Mount React component
 				categoryRoot = createRoot(rootElement);
-				categoryRoot.render(<FeedSection />);
+				categoryRoot.render(<App />);
 			}
 		}
 	}, 100);
