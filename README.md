@@ -1,12 +1,28 @@
 <div align="center">
   <img src="icons/icon128.png" alt="YouTube Collections Logo" width="128" height="128">
 
-  # YouTube Collections
+# YouTube Collections
 
-  **An open source Chrome extension to organize and manage your YouTube subscriptions**
+**Take ownership of what you watch. Don't let an algorithm take your agency.**
 
-  Create custom categories, filter your feed, and take control of your subscription experience.
+An open source Chrome extension that puts you back in control of your YouTube experience. Stop scrolling through endless recommended videos that you never asked for. Instead, organize your subscriptions into custom categories and curate a feed that reflects _your_ choices, _your_ interests, and _your_ priorities.
+
+<div style="font-size: 12px; color: #666;">
+	YouTube Collections is a third-party extension and is not affiliated with YouTube™.
+	YouTube is a trademark of Google LLC. Use of this trademark is subject to Google Permissions.
 </div>
+
+</div>
+
+## Why YouTube Collections?
+
+You subscribe to channels because you want to watch their content. Yet every day, YouTube's algorithm floods your subscription feed with recommendations, suggestions, and distractions—content designed to maximize engagement, not to serve your intent.
+
+**YouTube Collections changes that.**
+
+Instead of letting a black-box algorithm decide what you see, you decide. Organize your channels into meaningful categories like "Learning," "Entertainment," "News," or anything that matters to you. Then, with a single click, filter your feed to show only what you want, when you want it.
+
+This is your feed. These are your subscriptions. **Take ownership of what you watch.**
 
 ## Features
 
@@ -29,20 +45,24 @@
 1. **Clone or download this repository**
 
 2. **Install dependencies**
+
    ```bash
    bun install
    ```
 
 3. **Build the extension**
+
    ```bash
    bun run build
    ```
 
 4. **Add your icons** (icon16.png, icon48.png, icon128.png)
+
    - Place your icon files in the `icons/` directory
    - You can use any PNG images sized appropriately (16x16, 48x48, 128x128)
 
 5. **Load the extension in Chrome**
+
    - Open Chrome and navigate to `chrome://extensions/`
    - Enable "Developer mode" (toggle in top-right corner)
    - Click "Load unpacked"
@@ -194,6 +214,7 @@ youtube-sub-manager-2/
 This is an open source project! Contributions, issues, and feature requests are welcome.
 
 Feel free to:
+
 - Report bugs or suggest features via [GitHub Issues](../../issues)
 - Submit pull requests with improvements
 - Fork and customize for your own needs
