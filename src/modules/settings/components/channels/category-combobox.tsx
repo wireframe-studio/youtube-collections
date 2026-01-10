@@ -75,8 +75,10 @@ export const CategoryCombobox: FC<{
 		<view className="relative min-w-[280px]" ref={comboboxRef as any}>
 			<view
 				className={cn(
-					'flex bg-surface-muted border rounded-lg p-2 min-h-[44px] max-w-[280px] overflow-x-scroll cursor-pointer hover:bg-surface-muted transition-colors',
-					isOpen ? 'border-divider rounded-b-none' : 'border-divider'
+					'flex border rounded-xl p-3 min-h-[44px] max-w-[280px] overflow-x-scroll cursor-pointer transition-colors',
+					isOpen
+						? 'border-divider rounded-b-none bg-foreground'
+						: 'border-divider bg-surface-muted hover:bg-surface-hover'
 				)}
 				onClick={() => {
 					setIsOpen(!isOpen);
@@ -90,7 +92,7 @@ export const CategoryCombobox: FC<{
 						return (
 							<view
 								key={cat.id}
-								className="inline-flex items-center gap-2 pl-3 pr-2 py-1 rounded-xl body-3 font-medium text-neutral"
+								className="inline-flex items-center gap-2 pl-3 pr-2 py-2 rounded-xl body-3 font-medium text-neutral"
 								style={{
 									backgroundColor: cat.color + '40',
 									borderColor: cat.color,
@@ -136,22 +138,19 @@ export const CategoryCombobox: FC<{
 			</view>
 
 			{isOpen && (
-				<view className="absolute top-full left-0 right-0 bg-foreground border-l border-r border-b border-divider rounded-b-lg shadow-2xl z-10001 max-h-[280px] overflow-y-auto">
+				<view className="absolute top-full left-0 right-0 bg-foreground border-l border-r border-b border-divider rounded-b-lg shadow-2xl z-10001 max-h-[280px] overflow-y-auto py-3">
 					{filteredCategories.length === 0 ? (
 						<view className="px-4 py-8 text-center text-neutral-muted">
 							{searchText ? (
-								<view>
-									<view className="mb-2">No categories found</view>
-									<view className="body-3 text-neutral-muted">
-										Press{' '}
-										<kbd className="px-1.5 py-0.5 bg-surface rounded text-neutral font-mono">
-											Enter
-										</kbd>{' '}
-										to create "{searchText}"
-									</view>
+								<view className="body-3 text-neutral-muted">
+									Press{' '}
+									<kbd className="px-2 py-1 bg-surface rounded text-neutral font-mono">
+										Enter
+									</kbd>{' '}
+									to create "{searchText}"
 								</view>
 							) : (
-								'No categories available'
+								'No categories available.'
 							)}
 						</view>
 					) : (
@@ -164,7 +163,7 @@ export const CategoryCombobox: FC<{
 									<button
 										key={cat.id}
 										onClick={() => onToggle(cat.id)}
-										className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-surface-hover active:bg-surface-active text-left">
+										className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-hover active:bg-surface-active text-left">
 										<view
 											className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
 											style={{ backgroundColor: cat.color }}>

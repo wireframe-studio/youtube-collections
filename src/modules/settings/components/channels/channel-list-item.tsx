@@ -11,7 +11,7 @@ export const ChannelListItem: FC<{
 	onCategoryCreate: (category: Category) => void;
 }> = ({ channel, categories, onCategoryToggle, onCategoryCreate }) => {
 	return (
-		<view className="bg-surface-muted rounded-xl p-4 flex items-center gap-4 transition-colors">
+		<view className="bg-surface rounded-xl p-4 flex items-center gap-4 transition-colors">
 			{!channel.thumbnailUrl && (
 				<view className="w-12 h-12 rounded-full shrink-0 border border-white/10 bg-surface" />
 			)}

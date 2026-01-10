@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { MainArea } from '../../../components/main-area';
 import {
 	TabContent,
@@ -6,8 +5,6 @@ import {
 	TabsList,
 	TabTrigger
 } from '../../../components/tabs';
-import { getStorageData } from '../../../storage';
-import type { Category, Channel } from '../../../types';
 import { CategoriesTab } from './categories/categories-tab';
 import { ChannelsTab } from './channels/channels-tab';
 import { DataTab } from './data/data-tab';
@@ -18,28 +15,12 @@ interface ModalProps {
 }
 
 export function SettingsModal({ onClose }: ModalProps) {
-	const [categories, setCategories] = useState<Category[]>([]);
-	const [channels, setChannels] = useState<Channel[]>([]);
-
-	useEffect(() => {
-		loadData();
-	}, []);
-
-	async function loadData() {
-		const data = await getStorageData();
-		const sortedCategories = data.categories.sort((a, b) =>
-			a.name.localeCompare(b.name)
-		);
-		setCategories(sortedCategories);
-		setChannels(data.channels);
-	}
-
 	return (
 		<view
-			className="fixed inset-0 bg-[var(--yt-overlay-bg-medium)] backdrop-blur-xs flex items-center justify-center z-10000 p-4"
+			className="fixed inset-0 bg-overlay backdrop-blur-xs flex items-center justify-center z-10000 p-4"
 			onClick={onClose}>
 			<view
-				className="bg-[var(--yt-spec-base-background)] rounded-3xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl border border-[var(--yt-spec-outline)] mx-4 animate-in zoom-in-95"
+				className="bg-foreground rounded-3xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl border border-divider mx-4 animate-in zoom-in-95"
 				onClick={(e) => e.stopPropagation()}>
 				{/* Header */}
 				<ModalHeader onClose={onClose} />
@@ -55,23 +36,15 @@ export function SettingsModal({ onClose }: ModalProps) {
 
 						{/* Content */}
 						<TabContent value="categories">
-							<CategoriesTab categories={categories} onUpdate={loadData} />
+							<CategoriesTab />
 						</TabContent>
 
 						<TabContent value="channels">
-							<ChannelsTab
-								categories={categories}
-								channels={channels}
-								onUpdate={loadData}
-							/>
+							<ChannelsTab />
 						</TabContent>
 
 						<TabContent value="data">
-							<DataTab
-								categories={categories}
-								channels={channels}
-								onUpdate={loadData}
-							/>
+							<DataTab />
 						</TabContent>
 					</MainArea>
 				</Tabs>

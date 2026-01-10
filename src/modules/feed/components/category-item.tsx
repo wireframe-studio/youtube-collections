@@ -22,14 +22,16 @@ export function CategoryItem({
 			<view
 				className={cn(
 					'w-16 h-16 rounded-full flex items-center justify-center transition-all',
-					isActive
-						? 'ring-4 ring-[var(--yt-spec-text-primary)] scale-110'
-						: 'hover:scale-105'
+					isActive ? 'scale-110' : 'hover:scale-105'
 				)}
-				style={{ backgroundColor: category.color }}>
-				<IconComponent className="w-8 h-8 text-[var(--yt-spec-text-primary)]" />
+				style={{
+					backgroundColor: `color-mix(in srgb, ${category.color} ${
+						isActive ? '100%' : '40%'
+					}, transparent)`
+				}}>
+				<IconComponent className="w-8 h-8 text-neutral" />
 			</view>
-			<span className="text-xs text-[var(--yt-spec-text-primary)] text-center max-w-[80px] truncate">
+			<span className="body-3 text-neutral text-center truncate w-16">
 				{category.name}
 			</span>
 		</view>

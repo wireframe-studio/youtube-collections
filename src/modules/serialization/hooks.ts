@@ -1,9 +1,11 @@
 import { useUploadDialog } from '../../lib/upload/use-upload-dialog';
-import { getStorageData, setStorageData } from '../../storage';
+import { useImportData } from '../data/hooks';
+import { getStorageData } from '../../storage';
 import { type Category, type Channel } from '../../types';
 
-export const useSerialization = ({ onUpdate }: { onUpdate: () => void }) => {
+export const useSerialization = () => {
 	const { openUploadDialog } = useUploadDialog();
+	const importDataMutation = useImportData();
 
 	const handleExport = async () => {
 		const data = await getStorageData();
@@ -53,16 +55,23 @@ export const useSerialization = ({ onUpdate }: { onUpdate: () => void }) => {
 				return;
 			}
 
-			await mergeImportData(importData);
-			onUpdate();
-			alert('Data imported successfully!');
+			const mergedData = await mergeImportData(importData);
+			importDataMutation.mutate(mergedData, {
+				onSuccess: () => {
+					alert('Data imported successfully!');
+				},
+				onError: (error) => {
+					console.error('Import error:', error);
+					alert('Failed to import data. Please check the file format.');
+				}
+			});
 		} catch (error) {
 			console.error('Import error:', error);
 			alert('Failed to import data. Please check the file format.');
 		}
 	};
 
-	const mergeImportData = async (importData: any) => {
+	const mergeImportData = async (importData: any): Promise<{ categories: Category[]; channels: Channel[] }> => {
 		const currentData = await getStorageData();
 
 		const existingChannelIds = new Set(currentData.channels.map((ch) => ch.id));
@@ -107,10 +116,10 @@ export const useSerialization = ({ onUpdate }: { onUpdate: () => void }) => {
 
 		const mergedChannels = Array.from(channelMap.values());
 
-		await setStorageData({
+		return {
 			categories: mergedCategories,
 			channels: mergedChannels
-		});
+		};
 	};
 
 	return {

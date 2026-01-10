@@ -1,17 +1,22 @@
 import { FC, useMemo, useState } from 'react';
 import { buttonVariants } from '../../../../components/button';
 import { SectionHeader } from '../../../../components/section-header';
-import { addCategory, updateChannelCategories } from '../../../../storage';
-import type { Category, Channel } from '../../../../types';
+import type { Category } from '../../../../types';
+import {
+	useCategories,
+	useChannels,
+	useCreateCategory,
+	useUpdateChannelCategories
+} from '../../../data/hooks';
 import { ChannelList } from './channel-list';
 
 type FilterType = 'all' | 'unassigned' | string;
 
-export const ChannelsTab: FC<{
-	categories: Category[];
-	channels: Channel[];
-	onUpdate: () => void;
-}> = ({ categories, channels, onUpdate }) => {
+export const ChannelsTab: FC = () => {
+	const { categories } = useCategories();
+	const { channels } = useChannels();
+	const createCategoryMutation = useCreateCategory();
+	const updateChannelCategoriesMutation = useUpdateChannelCategories();
 	const [filter, setFilter] = useState<FilterType>('all');
 
 	const sortedChannels = useMemo(() => {
@@ -38,17 +43,29 @@ export const ChannelsTab: FC<{
 			? [...channel.categoryIds, categoryId]
 			: channel.categoryIds.filter((id) => id !== categoryId);
 
-		await updateChannelCategories(channelId, newCategoryIds);
-		onUpdate();
+		updateChannelCategoriesMutation.mutate({
+			channelId,
+			categoryIds: newCategoryIds
+		});
 	}
 
 	async function handleCategoryCreate(
 		channelId: string,
 		newCategory: Category
 	) {
-		await addCategory(newCategory);
-		await handleCategoryChange(channelId, newCategory.id, true);
-		onUpdate();
+		createCategoryMutation.mutate(newCategory, {
+			onSuccess: () => {
+				// After category is created, add it to the channel
+				const channel = channels.find((ch) => ch.id === channelId);
+				if (channel) {
+					const newCategoryIds = [...channel.categoryIds, newCategory.id];
+					updateChannelCategoriesMutation.mutate({
+						channelId,
+						categoryIds: newCategoryIds
+					});
+				}
+			}
+		});
 	}
 
 	return (

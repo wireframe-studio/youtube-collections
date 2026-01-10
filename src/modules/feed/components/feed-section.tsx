@@ -1,77 +1,43 @@
 import { Settings } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../../../components/button';
 import {
-	getStorageData,
-	onStorageChange,
-	setActiveFilters
-} from '../../../storage';
-import type { Category, StorageData } from '../../../types';
+	useActiveFilters,
+	useCategories,
+	useClearActiveFilters,
+	useSetActiveFilters
+} from '../../data/hooks';
+import { QueryProvider } from '../../data/query-provider';
 import { SettingsModal } from '../../settings/components/settings-modal';
 import { CategoryItem } from './category-item';
 
-export function FeedSection() {
-	const [categories, setCategories] = useState<Category[]>([]);
-	const [activeFilters, setActiveFiltersState] = useState<string[]>([]);
+function FeedSectionContent() {
+	const { categories } = useCategories();
+	const { activeFilters } = useActiveFilters();
+	const setActiveFiltersMutation = useSetActiveFilters();
+	const clearActiveFiltersMutation = useClearActiveFilters();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	useEffect(() => {
-		loadData();
-		onStorageChange(handleStorageChange);
-	}, []);
-
-	async function loadData() {
-		const data = await getStorageData();
-		const sortedCategories = data.categories.sort((a, b) =>
-			a.name.localeCompare(b.name)
-		);
-		setCategories(sortedCategories);
-		setActiveFiltersState(data.activeFilters);
-	}
-
-	function handleStorageChange(data: StorageData) {
-		const sortedCategories = data.categories.sort((a, b) =>
-			a.name.localeCompare(b.name)
-		);
-		setCategories(sortedCategories);
-		setActiveFiltersState(data.activeFilters);
-	}
 
 	async function toggleCategory(categoryId: string) {
 		const newFilters = activeFilters.includes(categoryId)
 			? activeFilters.filter((id) => id !== categoryId)
 			: [...activeFilters, categoryId];
 
-		await setActiveFilters(newFilters);
-		setActiveFiltersState(newFilters);
+		setActiveFiltersMutation.mutate(newFilters);
 	}
 
 	async function showAll() {
-		await setActiveFilters([]);
-		setActiveFiltersState([]);
+		clearActiveFiltersMutation.mutate();
 	}
 
 	return (
 		<>
-			<view className="py-4 bg-test">
-				<view className="flex items-center gap-4">
-					<Button
-						onClick={() => setIsModalOpen(true)}
-						variant="solid-weak"
-						size="icon">
-						<Settings />
-					</Button>
+			<view className="w-full pt-[24px] flex flex-col">
+				<view className="title-2 px-0 mb-6 text-neutral">Categories</view>
 
-					{categories.length > 0 && (
-						<Button
-							onClick={showAll}
-							variant={activeFilters.length === 0 ? 'solid-weak' : 'ghost'}>
-							Show All
-						</Button>
-					)}
-
-					<view className="flex-1 overflow-x-auto p-2">
-						<view className="flex gap-6 pb-2">
+				<view className="flex items-center gap-4 w-full justify-between">
+					<view className="overflow-x-auto">
+						<view className="flex gap-6">
 							{categories.map((category) => (
 								<CategoryItem
 									key={category.id}
@@ -82,10 +48,26 @@ export function FeedSection() {
 							))}
 						</view>
 					</view>
+
+					<Button
+						onClick={() => setIsModalOpen(true)}
+						variant="solid-weak"
+						size="icon"
+						className="shrink-0">
+						<Settings />
+					</Button>
 				</view>
 			</view>
 
 			{isModalOpen && <SettingsModal onClose={() => setIsModalOpen(false)} />}
 		</>
+	);
+}
+
+export function FeedSection() {
+	return (
+		<QueryProvider>
+			<FeedSectionContent />
+		</QueryProvider>
 	);
 }

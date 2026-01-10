@@ -1,6 +1,6 @@
 import { Download, Upload } from 'lucide-react';
 import { FC } from 'react';
-import type { Category, Channel } from '../../../../types';
+import { useCategories, useChannels } from '../../../data/hooks';
 import { useSerialization } from '../../../serialization/hooks';
 import { DataActionCard } from './data-action-card';
 import { DataFooter } from './data-footer';
@@ -8,12 +8,10 @@ import { DataHeader } from './data-header';
 import { DataInfoSection } from './data-info-section';
 import { DataStats } from './data-stats';
 
-export const DataTab: FC<{
-	categories: Category[];
-	channels: Channel[];
-	onUpdate: () => void;
-}> = ({ categories, channels, onUpdate }) => {
-	const { handleExport, handleImport } = useSerialization({ onUpdate });
+export const DataTab: FC = () => {
+	const { categories } = useCategories();
+	const { channels } = useChannels();
+	const { handleExport, handleImport } = useSerialization();
 
 	return (
 		<>

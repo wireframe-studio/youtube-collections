@@ -2,19 +2,21 @@ import { Plus } from 'lucide-react';
 import { FC, useState } from 'react';
 import { Button } from '../../../../components/button';
 import { SectionHeader } from '../../../../components/section-header';
-import {
-	addCategory,
-	deleteCategory,
-	updateCategory
-} from '../../../../storage';
 import { CATEGORY_COLORS, type Category } from '../../../../types';
+import {
+	useCategories,
+	useCreateCategory,
+	useDeleteCategory,
+	useUpdateCategory
+} from '../../../data/hooks';
 import { CategoryForm } from './category-form';
 import { CategoryList } from './category-list';
 
-export const CategoriesTab: FC<{
-	categories: Category[];
-	onUpdate: () => void;
-}> = ({ categories, onUpdate }) => {
+export const CategoriesTab: FC = () => {
+	const { categories } = useCategories();
+	const createCategoryMutation = useCreateCategory();
+	const deleteCategoryMutation = useDeleteCategory();
+	const updateCategoryMutation = useUpdateCategory();
 	const [isCreating, setIsCreating] = useState(false);
 	const [newName, setNewName] = useState('');
 	const [newIcon, setNewIcon] = useState('Circle');
@@ -35,18 +37,19 @@ export const CategoriesTab: FC<{
 			color: newColor
 		};
 
-		await addCategory(category);
-		setIsCreating(false);
-		setNewName('');
-		setNewIcon('Circle');
-		setNewColor(CATEGORY_COLORS[0]);
-		onUpdate();
+		createCategoryMutation.mutate(category, {
+			onSuccess: () => {
+				setIsCreating(false);
+				setNewName('');
+				setNewIcon('Circle');
+				setNewColor(CATEGORY_COLORS[0]);
+			}
+		});
 	}
 
 	async function handleDelete(categoryId: string) {
 		if (confirm('Delete this category? Channels will be unassigned from it.')) {
-			await deleteCategory(categoryId);
-			onUpdate();
+			deleteCategoryMutation.mutate(categoryId);
 		}
 	}
 
@@ -68,12 +71,14 @@ export const CategoriesTab: FC<{
 			color: editColor
 		};
 
-		await updateCategory(updatedCategory);
-		setEditingId(null);
-		setEditName('');
-		setEditIcon('Circle');
-		setEditColor(CATEGORY_COLORS[0]);
-		onUpdate();
+		updateCategoryMutation.mutate(updatedCategory, {
+			onSuccess: () => {
+				setEditingId(null);
+				setEditName('');
+				setEditIcon('Circle');
+				setEditColor(CATEGORY_COLORS[0]);
+			}
+		});
 	}
 
 	function handleCancelEdit() {

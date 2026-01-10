@@ -7,3 +7,11 @@
 @layer base;
 @layer components;
 @layer utilities;
+
+#yt-collections-root {
+	width: 100%;
+	padding: 0
+		calc(
+			var(--ytd-rich-grid-item-margin) / 2 + var(--ytd-rich-grid-gutter-margin)
+		);
+}

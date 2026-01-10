@@ -14,7 +14,7 @@ export const CategoryListItem: FC<{
 	return (
 		<view
 			key={category.id}
-			className="bg-surface-muted rounded-xl p-4 flex items-center gap-4 transition-colors">
+			className="bg-surface rounded-xl p-4 flex items-center gap-4 transition-colors">
 			<view
 				className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg"
 				style={{ backgroundColor: category.color }}>

@@ -21,7 +21,7 @@ export const DataActionCard: FC<{
 	return (
 		<view className="bg-surface rounded-xl p-6 space-y-4">
 			<view className="flex items-start gap-3">
-				<view className="p-3 bg-surface-muted rounded-lg">{icon}</view>
+				<view className="p-3 bg-surface rounded-lg">{icon}</view>
 				<view className="flex-1">
 					<h4 className="title-3 text-neutral mb-1">{title}</h4>
 					<p className="body-3 text-neutral-muted">{description}</p>
