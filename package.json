@@ -12,7 +12,7 @@
 		"build:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/output.css",
 		"build:css:watch": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/output.css --watch",
 		"build:copy": "bun scripts/copy-files.mjs",
-		"pack": "bun run build && zip youtube-collections.zip dist"
+		"pack": "bun run build && zip -r ./youtube-collections.zip ./dist"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.90.16",
