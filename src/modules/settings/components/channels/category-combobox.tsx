@@ -1,9 +1,9 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { FC, useEffect, useRef, useState } from 'react';
 import { getIconComponent, ICON_LIST } from '../../../../iconRegistry';
+import { cn } from '../../../../lib/shadcn/utils';
 import type { Category } from '../../../../types';
 import { CATEGORY_COLORS } from '../../../../types';
-import { cn } from '../../../../utils/utils';
 
 export const CategoryCombobox: FC<{
 	categories: Category[];

@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { cn } from '../utils/utils';
+import { cn } from '../lib/shadcn/utils';
 
 const buttonVariants = cva(
 	'flex flex-row items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none border',

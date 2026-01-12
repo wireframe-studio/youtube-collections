@@ -1,5 +1,11 @@
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from '@/lib/shadcn/ui/select';
 import { FC, useMemo, useState } from 'react';
-import { buttonVariants } from '../../../../components/button';
 import { SectionHeader } from '../../../../components/section-header';
 import type { Category } from '../../../../types';
 import {
@@ -75,22 +81,24 @@ export const ChannelsTab: FC = () => {
 				description={`${filteredChannels.length} channel${
 					filteredChannels.length !== 1 ? 's' : ''
 				}`}>
-				<select
-					value={filter}
-					onChange={(e) => setFilter(e.target.value)}
-					className={buttonVariants({
-						variant: 'outline',
-						size: 'md',
-						className: 'min-w-[160px]'
-					})}>
-					<option value="all">All channels</option>
-					<option value="unassigned">Unassigned</option>
-					{categories.map((cat) => (
-						<option key={cat.id} value={cat.id}>
-							{cat.name}
-						</option>
-					))}
-				</select>
+				<div className="relative">
+					<Select
+						defaultValue="all"
+						onChange={(value) => setFilter(value ?? 'all')}>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Filter by category" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="all">Filter by category</SelectItem>
+							<SelectItem value="unassigned">Unassigned</SelectItem>
+							{categories.map((cat) => (
+								<SelectItem key={cat.id} value={cat.id}>
+									{cat.name}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+				</div>
 			</SectionHeader>
 
 			<ChannelList

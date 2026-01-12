@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import { cn } from '../utils/utils';
+import { cn } from '../lib/shadcn/utils';
 
 export const FormLabel: FC<
 	{

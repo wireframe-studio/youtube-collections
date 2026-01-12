@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { cn } from '../utils/utils';
+import { cn } from '../lib/shadcn/utils';
 
 export const SectionHeader: FC<{
 	title: string;

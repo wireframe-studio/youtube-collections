@@ -3,8 +3,8 @@ import { Button } from '../../../../components/button';
 import { FormLabel } from '../../../../components/form-label';
 import { IconPicker } from '../../../../components/icon-picker';
 import { Input } from '../../../../components/input';
+import { cn } from '../../../../lib/shadcn/utils';
 import { CATEGORY_COLORS } from '../../../../types';
-import { cn } from '../../../../utils/utils';
 
 export const CategoryForm: FC<{
 	name: string;

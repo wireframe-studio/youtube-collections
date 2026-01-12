@@ -1,6 +1,6 @@
 import { getIconComponent } from '../../../iconRegistry';
+import { cn } from '../../../lib/shadcn/utils';
 import type { Category } from '../../../types';
-import { cn } from '../../../utils/utils';
 
 interface CategoryCircleProps {
 	category: Category;
