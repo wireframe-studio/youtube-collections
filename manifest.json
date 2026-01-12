@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Youtube Collections",
-	"version": "0.10.1",
+	"version": "0.10.2",
 	"description": "Organize your YouTube subscriptions into custom categories and filter your feed with ease",
 	"permissions": ["storage"],
 	"host_permissions": ["https://www.youtube.com/*"],

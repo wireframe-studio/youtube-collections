@@ -1,6 +1,6 @@
 {
 	"name": "youtube-collections",
-	"version": "0.10.1",
+	"version": "0.10.2",
 	"description": "Organize your YouTube subscriptions into custom categories",
 	"type": "module",
 	"scripts": {
